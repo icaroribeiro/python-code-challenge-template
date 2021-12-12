@@ -1,4 +1,2 @@
 .idea
 .venv
-tools/__pycache__/
-tools/api/__pycache__/
