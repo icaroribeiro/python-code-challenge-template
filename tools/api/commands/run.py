@@ -1,4 +1,4 @@
-from cmd.api import create_app
+from tools.api.commands import create_app
 
 app = create_app("dev")
 
@@ -9,4 +9,4 @@ class RunCmd:
 
     @staticmethod
     def run():
-        app.run(())
+        app.run()

@@ -1,18 +1,19 @@
-# API-related tasks.
-# ----------------------------------------------------------------------------------------------------
-setup/api:
+#
+# Set of tasks related to API building.
+#
+setup-api:
 	. .venv/Scripts/activate; \
 	poetry install
 
-format/api:
+format-api:
 	poetry run black .; \
 	poetry run isort .
 
-lint/api:
+lint-api:
 	poetry run black . --check; \
 	poetry run isort . --check-only --diff
 
-run/api:
+run-api:
 	. ./scripts/setup_env_vars.sh; \
 	poetry run python cmd/api/main.py run
 
@@ -23,8 +24,8 @@ run/api:
 # analyze/api:
 # 	go tool cover -func=./docs/tests/api/coverage.out
 
-check/api:
-	. ./scripts/setup_env.sh; \
+checkversion-api:
+	. ./scripts/setup_env_vars.sh; \
 	poetry run python cmd/api/main.py version
 
 #
