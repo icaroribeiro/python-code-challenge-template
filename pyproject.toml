@@ -7,6 +7,10 @@ authors = ["Ícaro Ribeiro <icaroribeiro@hotmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 typer = "^0.4.0"
+Flask = "^2.1.2"
+Flask-SQLAlchemy = "^2.5.1"
+Flask-Injector = "^0.14.0"
+flask-restplus = "^0.13.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.12b0"

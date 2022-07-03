@@ -13,7 +13,7 @@ lint/api:
 	poetry run isort . --check-only --diff
 
 run/api:
-	. ./scripts/setup_env.sh; \
+	. ./scripts/setup_env_vars.sh; \
 	poetry run python cmd/api/main.py run
 
 # test/api:
