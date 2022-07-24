@@ -1,4 +1,4 @@
-from cmd.api.config import config_by_name
+from comd.api.config import config_by_name
 
 import flask_injector
 from flask import Flask

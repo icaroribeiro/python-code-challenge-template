@@ -8,14 +8,14 @@ app = typer.Typer()
 
 @app.command()
 def version():
-    cmd = VersionCmd()
-    cmd.run()
+    cmd1 = VersionCmd()
+    cmd1.run()
 
 
 @app.command()
 def run():
-    cmd = RunCmd()
-    cmd.run()
+    cmd1 = RunCmd()
+    cmd1.run()
 
 
 if __name__ == "__main__":

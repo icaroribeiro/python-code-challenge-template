@@ -15,7 +15,7 @@ lint-api:
 
 run-api:
 	. ./scripts/setup_env_vars.sh; \
-	poetry run python cmd/api/main.py run
+	poetry run python comd/api/main.py run
 
 # test/api:
 # 	. ./scripts/setup_env.test.sh; \
@@ -26,7 +26,7 @@ run-api:
 
 checkversion-api:
 	. ./scripts/setup_env_vars.sh; \
-	poetry run python cmd/api/main.py version
+	poetry run python comd/api/main.py version
 
 #
 # build/mocks:
