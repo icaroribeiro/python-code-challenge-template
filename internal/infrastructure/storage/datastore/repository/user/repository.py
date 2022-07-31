@@ -1,26 +1,22 @@
-class User(Base):
-    __tablename__ = "user"
+from internal.core.domain.entity.user import User
+from internal.core.ports.infrastructure.storage.datastore.repository.user.repository_interface import (
+    IRepository,
+)
+from internal.infrastructure.storage.datastore import Session
+from internal.infrastructure.storage.datastore.entity.user import User as UserDatastore
 
-    id = Column("id", UUID(as_uuid=True), primary_key=True, default=uuid.UUID)
-    type = Column("type", Enum(AType), nullable=False)
-    created_at = Column(
-        "created_at", DateTime(), nullable=False, default=datetime.utcnow
-    )
-    updated_at = Column(
-        "updated_at",
-        DateTime(),
-        nullable=False,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow,
-    )
 
-    @classmethod
-    def from_domain(cls, domain):
-        return cls(
-            id=domain.id,
-        )
+class Repository(IRepository):
+    def __init__(self, session: Session):
+        self._session = session
 
-    def to_domain(self):
-        domain = UserDomain(
-            id=self.id,
-        )
+    def create(self, user: User) -> User:
+        user_datastore: UserDatastore
+
+        user_datastore = UserDatastore.from_domain(domain=user)
+
+        self._session.add(user_datastore)
+
+        self._session.commit()
+
+        return user_datastore.to_domain()
