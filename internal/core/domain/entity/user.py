@@ -1,9 +1,10 @@
 import uuid
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+from uuid import uuid4
 
-from pydantic import BaseModel, Field
 
-
-@dataclass(frozen=True)
-class User(BaseModel):
-    id: uuid.UUID = Field(init=True, default_factory=uuid.uuid4)
+@dataclass(frozen=True, eq=True)
+class User:
+    username: str
+    id: uuid.UUID = field(init=True, default_factory=uuid.uuid4)
+    # id: str = field(default_factory=lambda: str(uuid4()))

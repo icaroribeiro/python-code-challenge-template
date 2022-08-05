@@ -10,10 +10,17 @@ from internal.infrastructure.storage.datastore.base import Base
 
 class User(Base):
 
-    __tablename__ = "user"
+    __tablename__ = "users"
 
-    id = Column("id", UUID(as_uuid=True), primary_key=True, default=uuid.UUID)
-    username = Column("username", String(25), nullable=False)
+    id = Column(
+        "id",
+        UUID(as_uuid=True),
+        primary_key=True,
+        unique=True,
+        nullable=False,
+        default=uuid.UUID,
+    )
+    username = Column("username", String, unique=True, nullable=False)
     created_at = Column(
         "created_at", DateTime(), nullable=False, default=datetime.utcnow
     )
@@ -27,11 +34,7 @@ class User(Base):
 
     @classmethod
     def from_domain(cls, domain):
-        return cls(
-            id=domain.id,
-        )
+        return cls(id=domain.id, username=domain.username)
 
     def to_domain(self):
-        return UserDomain(
-            id=self.id,
-        )
+        return UserDomain(id=self.id, username=self.username)
