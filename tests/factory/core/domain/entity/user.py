@@ -1,3 +1,5 @@
+import uuid
+
 import factory
 from factory import LazyFunction
 from faker import Faker
@@ -11,5 +13,5 @@ class UserFactory(factory.Factory):
     class Meta:
         model = User
 
-    id = LazyFunction(fake.uuid)
-    username = LazyFunction(fake.username)
+    id = LazyFunction(uuid.uuid4())
+    username = LazyFunction(fake.name())

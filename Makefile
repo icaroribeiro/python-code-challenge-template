@@ -17,9 +17,12 @@ run-api:
 	. ./scripts/setup_env_vars.sh; \
 	poetry run python comd/api/main.py run
 
-# test/api:
-# 	. ./scripts/setup_env.test.sh; \
-# 	go test ./... -v -coverprofile=./docs/tests/api/coverage.out
+#
+# Set of tasks related to API testing.
+#
+test-api:
+	. ./scripts/setup_env_vars.test.sh; \
+	poetry run pytest
 #
 # analyze/api:
 # 	go tool cover -func=./docs/tests/api/coverage.out
