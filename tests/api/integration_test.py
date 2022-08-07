@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
 from internal.infrastructure.env.env import Env
+from internal.infrastructure.storage.datastore.base import Base
 
 
 class IntegrationTest:
@@ -32,8 +33,16 @@ class IntegrationTest:
 
         return create_engine(url=conn_string)
 
+    @pytest.fixture(scope="session")
+    def tables(self, engine):
+        Base.metadata.create_all(engine)
+
+        yield
+
+        Base.metadata.drop_all(engine)
+
     @pytest.fixture
-    def session(self, engine):
+    def session(self, engine, tables):
         connection = engine.connect()
 
         transaction = connection.begin()

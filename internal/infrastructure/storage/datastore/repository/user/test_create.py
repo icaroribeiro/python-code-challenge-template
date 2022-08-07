@@ -5,10 +5,13 @@ from internal.infrastructure.storage.datastore.entity.user import User as UserDa
 from internal.infrastructure.storage.datastore.repository.user.test_repository_fixtures import (
     TestRepositoryFixtures,
 )
+from tests.factory.core.domain.entity.user import UserFactory
+from tests.factory.infrastructure.storage.datastore.entity.user import UserFactory
 
 
 class TestCreate(TestRepositoryFixtures):
     def test_create_should_succeed_in_creating_a_user(self, session, repository, fake):
+        # u = UserFactory.build()
         user = User(id=uuid.uuid4(), username=fake.name())
 
         returned_user = repository.create(user)

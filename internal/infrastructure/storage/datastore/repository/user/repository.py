@@ -6,7 +6,7 @@ from internal.infrastructure.storage.datastore.entity.user import User as UserDa
 
 
 class Repository(IRepository):
-    def __init__(self, session):
+    def __init__(self, session) -> None:
         self._session = session
 
     def create(self, user: User) -> User:
