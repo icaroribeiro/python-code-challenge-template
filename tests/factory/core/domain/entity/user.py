@@ -1,17 +1,12 @@
 import uuid
+from dataclasses import dataclass, field
 
-import factory
-from factory import LazyFunction
 from faker import Faker
-
-from internal.core.domain.entity.user import User
 
 fake = Faker()
 
 
-class UserFactory(factory.Factory):
-    class Meta:
-        model = User
-
-    id = LazyFunction(uuid.uuid4())
-    username = LazyFunction(fake.name())
+@dataclass
+class UserFactory:
+    id: uuid = field(default=uuid.uuid4())
+    username: str = field(default_factory=fake.name)

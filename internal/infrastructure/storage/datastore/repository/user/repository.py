@@ -1,3 +1,5 @@
+from typing import List
+
 from internal.core.domain.entity.user import User
 from internal.core.ports.infrastructure.storage.datastore.repository.user.repository_interface import (
     IRepository,
@@ -19,3 +21,15 @@ class Repository(IRepository):
         self._session.commit()
 
         return user_datastore.to_domain()
+
+    def get_by_id(self, id: str) -> User:
+        pass
+
+    def get_all(self) -> List[User]:
+        pass
+
+    def update(self, id: str, user: User) -> User:
+        pass
+
+    def delete(self, id: str) -> User:
+        pass
