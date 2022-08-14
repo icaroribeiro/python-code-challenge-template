@@ -23,6 +23,13 @@ class Repository(IRepository):
 
         return user_datastore.to_domain()
 
+    def get_all(self) -> List[User]:
+        user_datastore_list: List[UserDatastore]
+
+        user_datastore_list = self._session.query(UserDatastore).all()
+
+        return [user_datastore.to_domain() for user_datastore in user_datastore_list]
+
     def get_by_id(self, id: str) -> User:
         user_datastore: UserDatastore
 
@@ -34,15 +41,28 @@ class Repository(IRepository):
 
         return user_datastore.to_domain()
 
-    def get_all(self) -> List[User]:
-        user_datastore_list: List[UserDatastore]
-
-        user_datastore_list = self._session.query(UserDatastore).all()
-
-        return [user_datastore.to_domain() for user_datastore in user_datastore_list]
-
     def update(self, id: str, user: User) -> User:
-        pass
+        user_datastore: UserDatastore
+
+        user_datastore = (
+            self._session.query(UserDatastore)
+            .filter(UserDatastore.id == uuid.UUID(id))
+            .update({UserDatastore.username: user.username}, synchronize_session=False)
+        )
+
+        self._session.commit()
+
+        return user_datastore.to_domain()
 
     def delete(self, id: str) -> User:
-        pass
+        user_datastore: UserDatastore
+
+        user_datastore = (
+            self._session.query(UserDatastore)
+            .filter(UserDatastore.id == uuid.UUID(id))
+            .delete()
+        )
+
+        self._session.commit()
+
+        return user_datastore.to_domain()

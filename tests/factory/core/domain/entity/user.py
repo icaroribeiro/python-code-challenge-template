@@ -8,5 +8,5 @@ fake = Faker()
 
 @dataclass
 class UserFactory:
-    id: uuid = field(default=uuid.uuid4())
+    id: uuid = field(default_factory=fake.uuid4)
     username: str = field(default_factory=fake.name)
