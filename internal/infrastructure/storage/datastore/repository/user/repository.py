@@ -1,3 +1,4 @@
+import uuid
 from typing import List
 
 from internal.core.domain.entity.user import User
@@ -23,10 +24,22 @@ class Repository(IRepository):
         return user_datastore.to_domain()
 
     def get_by_id(self, id: str) -> User:
-        pass
+        user_datastore: UserDatastore
+
+        user_datastore = (
+            self._session.query(UserDatastore)
+            .filter(UserDatastore.id == uuid.UUID(id))
+            .first()
+        )
+
+        return user_datastore.to_domain()
 
     def get_all(self) -> List[User]:
-        pass
+        user_datastore_list: List[UserDatastore]
+
+        user_datastore_list = self._session.query(UserDatastore).all()
+
+        return [user_datastore.to_domain() for user_datastore in user_datastore_list]
 
     def update(self, id: str, user: User) -> User:
         pass
