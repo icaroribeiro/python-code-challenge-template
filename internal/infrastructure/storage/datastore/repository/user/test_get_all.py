@@ -10,7 +10,7 @@ class TestGetAll(TestRepositoryFixtures):
         self, session, repository, fake
     ):
         users = [UserFactory() for _ in range(fake.pyint(min_value=1, max_value=10))]
-        user_datastore_list = [UserDatastore.from_domain(user) for user in users]
+        user_datastore_list = [UserDatastore.from_domain(domain=user) for user in users]
         session.add_all(user_datastore_list)
         session.commit()
 
@@ -20,3 +20,8 @@ class TestGetAll(TestRepositoryFixtures):
         assert {
             user_datastore.to_domain() for user_datastore in user_datastore_list
         } == {returned_user for returned_user in returned_users}
+
+    def test_get_all_should_empty_list_if_there_are_no_records(self, repository):
+        returned_users = repository.get_all()
+
+        assert [] == returned_users

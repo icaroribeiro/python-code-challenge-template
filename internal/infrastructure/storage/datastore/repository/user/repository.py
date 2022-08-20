@@ -39,7 +39,7 @@ class Repository(IRepository):
             .first()
         )
 
-        return user_datastore.to_domain()
+        return user_datastore.to_domain() if user_datastore else None
 
     def update(self, id: str, user: User) -> User:
         user_datastore: UserDatastore

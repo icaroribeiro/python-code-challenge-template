@@ -14,7 +14,7 @@ class UserFactory(factory.Factory):
         strategy = BUILD_STRATEGY
         model = User
 
-    id = LazyFunction(fake.uuid)
+    id = LazyFunction(fake.uuid4)
     username = LazyFunction(fake.name())
     created_at = LazyFunction(datetime.utcnow())
     # created_at = LazyAttribute(lambda _: datetime.utcnow() - timedelta(days=1))
