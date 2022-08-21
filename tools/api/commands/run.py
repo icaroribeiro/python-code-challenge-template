@@ -1,3 +1,7 @@
+from internal.di.di import AppContainer
+from internal.transport.presentation.handler.healthcheck import (
+    handler as healthcheck_handler,
+)
 from tools.api.commands import create_app
 
 app = create_app("dev")

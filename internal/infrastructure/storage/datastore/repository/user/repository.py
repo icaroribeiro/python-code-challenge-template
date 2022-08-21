@@ -10,23 +10,23 @@ from internal.infrastructure.storage.datastore.entity.user import User as UserDa
 
 class Repository(IRepository):
     def __init__(self, session) -> None:
-        self._session = session
+        self.session = session
 
     def create(self, user: User) -> User:
         user_datastore: UserDatastore
 
         user_datastore = UserDatastore.from_domain(domain=user)
 
-        self._session.add(user_datastore)
+        self.session.add(user_datastore)
 
-        self._session.commit()
+        self.session.commit()
 
         return user_datastore.to_domain()
 
     def get_all(self) -> List[User]:
         user_datastore_list: List[UserDatastore]
 
-        user_datastore_list = self._session.query(UserDatastore).all()
+        user_datastore_list = self.session.query(UserDatastore).all()
 
         return [user_datastore.to_domain() for user_datastore in user_datastore_list]
 
@@ -34,7 +34,7 @@ class Repository(IRepository):
         user_datastore: UserDatastore
 
         user_datastore = (
-            self._session.query(UserDatastore)
+            self.session.query(UserDatastore)
             .filter(UserDatastore.id == uuid.UUID(id))
             .first()
         )
@@ -45,12 +45,12 @@ class Repository(IRepository):
         user_datastore: UserDatastore
 
         user_datastore = (
-            self._session.query(UserDatastore)
+            self.session.query(UserDatastore)
             .filter(UserDatastore.id == uuid.UUID(id))
-            .update({UserDatastore.username: user.username}, synchronize_session=False)
+            .update({UserDatastore.username: user.username}, synchronizesession=False)
         )
 
-        self._session.commit()
+        self.session.commit()
 
         return user_datastore.to_domain()
 
@@ -58,11 +58,11 @@ class Repository(IRepository):
         user_datastore: UserDatastore
 
         user_datastore = (
-            self._session.query(UserDatastore)
+            self.session.query(UserDatastore)
             .filter(UserDatastore.id == uuid.UUID(id))
             .delete()
         )
 
-        self._session.commit()
+        self.session.commit()
 
         return user_datastore.to_domain()

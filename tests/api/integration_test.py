@@ -36,23 +36,19 @@ class IntegrationTest:
     @pytest.fixture(scope="session")
     def tables(self, engine):
         Base.metadata.create_all(engine)
-
         yield
-
         Base.metadata.drop_all(engine)
 
     @pytest.fixture
     def session(self, engine, tables):
         connection = engine.connect()
-
         transaction = connection.begin()
-
         session = Session(bind=connection)
-
-        yield session
-
-        session.close()
-
-        transaction.rollback()
-
-        connection.close()
+        try:
+            yield session
+        except (Exception,):
+            session.rollback()
+        finally:
+            session.close()
+            transaction.rollback()
+            connection.close()
