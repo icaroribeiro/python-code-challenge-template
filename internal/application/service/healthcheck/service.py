@@ -10,16 +10,14 @@ from internal.core.ports.application.service.healthcheck.service_interface impor
 
 
 class Service(IService):
-    def __init__(
-        self, session_factory: Callable[..., AbstractContextManager[Session]]
-    ) -> None:
-        self.session_factory = session_factory
+    def __init__(self, datastore_factory) -> None:
+        self.datastore_factory = datastore_factory
 
     def get_status(self) -> bool:
         is_database_working = True
 
         try:
-            with self.session_factory() as session:
+            with self.datastore_factory.session() as session:
                 session.execute("SELECT 1")
         except (Exception,) as e:
             print("error:", e)

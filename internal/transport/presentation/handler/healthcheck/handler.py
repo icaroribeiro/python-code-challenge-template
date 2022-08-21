@@ -12,7 +12,7 @@ blueprint = Blueprint("healthcheck_route", __name__)
 @blueprint.route("/status", methods=["GET"])
 @inject
 def get_status(
-    service: HealthCheckService = Provide[AppContainer.healthcheck_service],
+    service: HealthCheckService = Provide[AppContainer.service.healthcheck_service],
 ):
     if service.get_status():
         return jsonify({"message": "everything is up and running"}), 200
