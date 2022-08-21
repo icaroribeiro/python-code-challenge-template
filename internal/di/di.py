@@ -37,19 +37,18 @@ class ServiceContainer(containers.DeclarativeContainer):
 
 
 class AppContainer(containers.DeclarativeContainer):
-    datastore = providers.Container(DatastoreContainer)
-    repository = providers.Container(RepositoryContainer, datastore=datastore)
-    service = providers.Container(
-        ServiceContainer, datastore=datastore, repository=repository
+    # datastore = providers.Container(DatastoreContainer)
+    # repository = providers.Container(RepositoryContainer, datastore=datastore)
+    # service = providers.Container(
+    #     ServiceContainer, datastore=datastore, repository=repository
+    # )
+    datastore = providers.Singleton(
+        Datastore, conn_string="postgresql://postgres:postgres@localhost:5432/db"
     )
-    # Funciona:
-    # datastore = providers.Singleton(
-    #     Datastore, conn_string="postgresql://postgres:postgres@localhost:5432/db"
-    # )
-    # user_repository = providers.Factory(
-    #     UserRepository, datastore_factory=datastore.provider
-    # )
-    # healthcheck_service = providers.Factory(
-    #     HealthCheckService, datastore_factory=datastore.provided
-    # )
-    # user_service = providers.Factory(UserService, repository=user_repository)
+    user_repository = providers.Factory(
+        UserRepository, datastore_factory=datastore.provider
+    )
+    healthcheck_service = providers.Factory(
+        HealthCheckService, datastore_factory=datastore.provided
+    )
+    user_service = providers.Factory(UserService, repository=user_repository)
