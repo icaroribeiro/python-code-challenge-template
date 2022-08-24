@@ -1,10 +1,17 @@
 from dependency_injector import containers, providers
+from sqlalchemy.orm import Session, scoped_session
 
 from internal.application.service.healthcheck.service import (
     Service as HealthCheckService,
 )
 from internal.application.service.user.service import Service as UserService
-from internal.infrastructure.storage.datastore.datastore import Datastore
+from internal.infrastructure.storage.datastore.datastore import (
+    Datastore,
+    _cde,
+    session,
+    session20,
+    sfunc,
+)
 from internal.infrastructure.storage.datastore.repository.user.repository import (
     Repository as UserRepository,
 )
@@ -42,13 +49,10 @@ class AppContainer(containers.DeclarativeContainer):
     # service = providers.Container(
     #     ServiceContainer, datastore=datastore, repository=repository
     # )
-    datastore = providers.Singleton(
+    datastore = providers.Factory(
         Datastore, conn_string="postgresql://postgres:postgres@localhost:5432/db"
     )
-    user_repository = providers.Factory(
-        UserRepository, datastore_factory=datastore.provider
-    )
-    healthcheck_service = providers.Factory(
-        HealthCheckService, datastore_factory=datastore.provided
-    )
+    session = providers.Singleton(datastore.provided.get_session)
+    user_repository = providers.Factory(UserRepository, session=scoped_session(sfunc))
+    healthcheck_service = providers.Factory(HealthCheckService, session=sfunc)
     user_service = providers.Factory(UserService, repository=user_repository)

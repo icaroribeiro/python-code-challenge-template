@@ -1,9 +1,8 @@
 import os
 
+from internalinternal.infrastructure.env.env import Env
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-from internal.infrastructure.env.env import Env
 
 env = Env()
 
