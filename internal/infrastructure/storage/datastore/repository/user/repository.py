@@ -17,9 +17,9 @@ class Repository(IRepository):
 
         user_datastore = UserDatastore.from_domain(domain=user)
 
-        self.session().add(user_datastore)
+        self.session.add(user_datastore)
 
-        self.session().commit()
+        self.session.commit()
 
         return user_datastore.to_domain()
 
