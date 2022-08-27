@@ -4,6 +4,7 @@ from flask import Blueprint, jsonify
 from internal.application.service.healthcheck.service import (
     Service as HealthCheckService,
 )
+from internal.application.service.healthcheck.service import TestService
 from internal.di.di import AppContainer
 
 blueprint = Blueprint("healthcheck_route", __name__)
@@ -22,3 +23,13 @@ def get_status(
         return jsonify({"message": "everything is up and running"}), 200
 
     return jsonify({"error": "the app is not ready to work as expected"}), 500
+
+
+@blueprint.route("/status2", methods=["GET"])
+@inject
+def get_status2(
+    service: TestService = Provide[AppContainer.service.test_service],
+):
+    print("service.get_test(): ", service.get_test())
+
+    return jsonify({"message": "everything is up and running"}), 200

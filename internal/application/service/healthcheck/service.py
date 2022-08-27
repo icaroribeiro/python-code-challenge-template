@@ -15,7 +15,15 @@ class Service(IService):
         try:
             self.session.execute("SELECT 1")
         except (Exception,) as e:
-            print("error:", e)
+            print("Error: ", e)
             is_database_working = False
 
         return is_database_working
+
+
+class TestService:
+    def __init__(self, test) -> None:
+        self.test = test
+
+    def get_test(self):
+        return self.test

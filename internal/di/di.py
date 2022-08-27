@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session, scoped_session
 from internal.application.service.healthcheck.service import (
     Service as HealthCheckService,
 )
+from internal.application.service.healthcheck.service import TestService
 from internal.application.service.user.service import Service as UserService
 
 # from internal.infrastructure.storage.datastore.datastore import (
@@ -20,15 +21,23 @@ from internal.infrastructure.storage.datastore.repository.user.repository import
 
 
 class Core(containers.DeclarativeContainer):
-    config = providers.Configuration()
-    print(config)
+    config = providers.Configuration("config")
+    print("Test 0123:", config)
 
 
 class DatastoreContainer(containers.DeclarativeContainer):
+    # print("test:", Core.config.get("conn_string"))
+
+    # core = providers.DependenciesContainer()
+    # config = providers.Configuration()
+    # print("config --->:", config.abc)
+    config = providers.Configuration()
+    print("config.conn_string in Datastore: ", config.conn_string)
     datastore = providers.Factory(
-        Datastore, conn_string="postgresql://postgres:postgres@localhost:5432/db"
+        Datastore,
+        conn_string=config.conn_string,
     )
-    session = providers.Singleton(datastore.provided.get_session())
+    session = providers.Callable(datastore.provided.get_session)
     # session = providers.Singleton(
     #     Datastore(
     #         conn_string="postgresql://postgres:postgres@localhost:5432/db"
@@ -46,24 +55,38 @@ class DatastoreContainer(containers.DeclarativeContainer):
 #
 #
 class ServiceContainer(containers.DeclarativeContainer):
+    print("Service")
     datastore = providers.DependenciesContainer()
+
+    config = providers.Configuration()
+    print("config.conn_string: ", config.conn_string)
     # repository = providers.DependenciesContainer()
+    test_service = providers.Factory(TestService, test=config.conn_string)
     healthcheck_service = providers.Factory(
         HealthCheckService, session=datastore.session
     )
+
     # user_service = providers.Factory(UserService, repository=repository.user_repository)
 
 
 class AppContainer(containers.DeclarativeContainer):
+    config = providers.Configuration()
+
+    # core = providers.Container(Core, config=config.core)
+
+    print("AppContainer *****")
+    # core = providers.Container(Core)
+    # print(core.config)
     # print(Core.config["conn_string"])
     # conn_string = Core.config.app_config["conn_string"]
     # datastore = Datastore(
     #     conn_string="postgresql://postgres:postgres@localhost:5432/db"
     # )
-    datastore = providers.Container(DatastoreContainer)
+
+    datastore = providers.Container(DatastoreContainer, config=config)
 
     # repository = providers.Container(RepositoryContainer, datastore=datastore)
-    service = providers.Container(ServiceContainer, datastore=datastore)
+    service = providers.Container(ServiceContainer, datastore=datastore, config=config)
     # datastore = providers.Factory(
     #     Datastore, conn_string="postgresql://postgres:postgres@localhost:5432/db"
     # )

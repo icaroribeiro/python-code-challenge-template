@@ -5,17 +5,19 @@ from sqlalchemy.orm import Session
 class Datastore:
     def __init__(self, conn_string: str):
         self.conn_string = conn_string
-        engine = self._create_engine(conn_string=self.conn_string)
-        connection = engine.connect()
-        self.my_session = Session(bind=connection)
+        # print("conn_string: ", conn_string)
+        # engine = self._create_engine(conn_string=self.conn_string)
+        # connection = engine.connect()
+        # self.my_session = Session(bind=connection)
 
     def get_session(self):
+        print("get_session called: ", self.conn_string)
         engine = self._create_engine(conn_string=self.conn_string)
         connection = engine.connect()
         return Session(bind=connection)
 
-    def get_session2(self):
-        return self.my_session
+    # def get_session2(self):
+    #     return self.my_session
 
     @staticmethod
     def _create_engine(conn_string: str):

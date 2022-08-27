@@ -2,19 +2,14 @@ from comd.api.config import config_by_name
 
 from flask import Flask
 
-from internal.di.di import AppContainer, Core
+from internal.di.di import AppContainer
 from internal.infrastructure.env.env import Env
-from internal.infrastructure.storage.datastore.datastore import Datastore
 from internal.transport.presentation.handler.healthcheck import (
     handler as healthcheck_handler,
 )
 
 
 def create_app(config_name):
-    app = Flask(__name__)
-    # app.config.from_object(config_by_name[config_name])
-    app.register_blueprint(healthcheck_handler.blueprint)
-
     env = Env()
 
     driver = env.get_env_with_default_value(key="DB_DRIVER", default_value="postgresql")
@@ -35,9 +30,21 @@ def create_app(config_name):
         name=name,
     )
 
-    app_container = AppContainer()
-    Core.config.override({"conn_string": conn_string})
+    print("ABC1")
+
     # Core.config.conn_string = conn_string
+    # Core.config.override({"conn_string": conn_string})
+    #
+    # print("ABC: ", Core.config.get("conn_string"))
+
+    app_container = AppContainer()
+    # app_container.config.from_yaml("config.yml")
+    app_container.config.override({"conn_string": conn_string, "abc": "kkkk"})
+    # print("DEF: ", app_container.config.get("abc"))
     app_container.wire(modules=[healthcheck_handler])
+
+    app = Flask(__name__)
+    # app.config.from_object(config_by_name[config_name])
+    app.register_blueprint(healthcheck_handler.blueprint)
 
     return app
