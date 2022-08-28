@@ -6,6 +6,16 @@
 export PYTHONPATH="$PWD"
 
 #
+# Python Flask settings.
+#
+export FLASK_APP="tools/api/commands/run"
+
+#
+# HTTP server settings
+#
+export HTTP_PORT="5000"
+
+#
 # Database settings
 #
 export DB_DRIVER="postgresql"

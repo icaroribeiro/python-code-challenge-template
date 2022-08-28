@@ -1,5 +1,5 @@
 #
-# Set of tasks related to API building.
+# Set of tasks related to API building and running.
 #
 setup-api:
 	. .venv/Scripts/activate; \
@@ -13,6 +13,10 @@ lint-api:
 	poetry run black . --check; \
 	poetry run isort . --check-only --diff
 
+checkversion-api:
+	. ./scripts/setup_env_vars.sh; \
+	poetry run python comd/api/main.py version
+
 run-api:
 	. ./scripts/setup_env_vars.sh; \
 	poetry run python comd/api/main.py run
@@ -23,55 +27,12 @@ run-api:
 test-api:
 	. ./scripts/setup_env_vars.test.sh; \
 	poetry run pytest
-#
-# analyze/api:
-# 	go tool cover -func=./docs/tests/api/coverage.out
-
-checkversion-api:
-	. ./scripts/setup_env_vars.sh; \
-	poetry run python comd/api/main.py version
 
 #
-# build/mocks:
-# 	. ./scripts/build_mocks.sh
+# Set of tasks related to APP container
 #
-# # Container-related tasks.
-# # ----------------------------------------------------------------------------------------------------
-# startup/docker:
-# 	docker-compose --env-file ./.env up -d
-#
-# rebuild/docker:
-# 	docker-compose down; \
-# 	docker-compose --env-file ./.env up -d --build
-#
-# test/docker:
-# 	docker exec --env-file ./.env.test api_container go test ./... -v -coverprofile=./docs/tests/api/coverage.out
-#
-# analyze/docker:
-# 	docker-compose exec api go tool cover -func=./docs/tests/api/coverage.out
-#
-# shutdown/docker:
-# 	docker-compose down -v --rmi all
-#
-# # Deployment-related tasks.
-# # ----------------------------------------------------------------------------------------------------
-# init/deploy:
-# 	cd deployments/heroku/terraform; \
-# 	terraform init
-#
-# plan/deploy:
-# 	. ./deployments/heroku/scripts/setup_env.sh; \
-# 	cd deployments/heroku/terraform; \
-# 	terraform plan
-#
-# apply/deploy:
-# 	. ./deployments/heroku/scripts/copy_code.sh; \
-# 	. ./deployments/heroku/scripts/setup_env.sh; \
-# 	cd deployments/heroku/terraform; \
-# 	terraform apply
-#
-# destroy/deploy:
-# 	. ./deployments/heroku/scripts/delete_code.sh; \
-# 	. ./deployments/heroku/scripts/setup_env.sh; \
-# 	cd deployments/heroku/terraform; \
-# 	terraform destroy
+startup-app:
+	docker-compose up -d --build api
+
+shutdown-app:
+	docker-compose down -v --rmi all
