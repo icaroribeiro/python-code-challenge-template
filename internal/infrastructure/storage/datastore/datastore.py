@@ -48,8 +48,8 @@ class Datastore:
         return create_engine(url=conn_string)
 
     @staticmethod
-    def session_factory(db):
-        return db.get_session()
+    def session_factory(datastore):
+        return datastore.get_session()
 
 
 # from contextlib import AbstractContextManager, contextmanager

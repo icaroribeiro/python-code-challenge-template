@@ -37,7 +37,7 @@ class DatastoreContainer(containers.DeclarativeContainer):
         Datastore,
         conn_string=config.conn_string,
     )
-    session = providers.Factory(Datastore.session_factory, db=datastore)
+    session = providers.Factory(Datastore.session_factory, datastore=datastore)
     # session = providers.Callable(
     #     Datastore(
     #         conn_string=config.conn_string,
