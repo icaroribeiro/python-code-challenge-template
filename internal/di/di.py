@@ -37,11 +37,11 @@ class DatastoreContainer(containers.DeclarativeContainer):
         Datastore,
         conn_string=config.conn_string,
     )
-    session = providers.Callable(datastore.provided.get_session)
-    # session = providers.Singleton(
+    session = providers.Factory(Datastore.session_factory, db=datastore)
+    # session = providers.Callable(
     #     Datastore(
-    #         conn_string="postgresql://postgres:postgres@localhost:5432/db"
-    #     ).get_session
+    #         conn_string=config.conn_string,
+    #     ).provided.get_session
     # )
 
 
@@ -56,11 +56,11 @@ class DatastoreContainer(containers.DeclarativeContainer):
 #
 class ServiceContainer(containers.DeclarativeContainer):
     print("Service")
-    datastore = providers.DependenciesContainer()
 
     config = providers.Configuration()
     print("config.conn_string: ", config.conn_string)
     # repository = providers.DependenciesContainer()
+    datastore = providers.DependenciesContainer()
     test_service = providers.Factory(TestService, test=config.conn_string)
     healthcheck_service = providers.Factory(
         HealthCheckService, session=datastore.session

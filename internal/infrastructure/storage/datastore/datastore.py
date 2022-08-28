@@ -1,14 +1,27 @@
+import contextlib
+from contextlib import AbstractContextManager, contextmanager
+from typing import Callable
+
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, scoped_session, sessionmaker
 
 
 class Datastore:
     def __init__(self, conn_string: str):
+        print("conn_string from datastore: ", conn_string)
         self.conn_string = conn_string
         # print("conn_string: ", conn_string)
         # engine = self._create_engine(conn_string=self.conn_string)
         # connection = engine.connect()
         # self.my_session = Session(bind=connection)
+        # self.my_session = scoped_session(
+        #     sessionmaker(
+        #         autocommit=False,
+        #         autoflush=False,
+        #         bind=create_engine(url=conn_string),
+        #     ),
+        # )
+        # self.my_session3 = Session(bind=create_engine(url=conn_string).connect())
 
     def get_session(self):
         print("get_session called: ", self.conn_string)
@@ -16,12 +29,27 @@ class Datastore:
         connection = engine.connect()
         return Session(bind=connection)
 
-    # def get_session2(self):
-    #     return self.my_session
+    # @contextmanager
+    # def get_session2(self) -> Callable[..., AbstractContextManager[Session]]:
+    #     session: Session = self.my_session()
+    #     try:
+    #         yield session
+    #     except Exception:
+    #         session.rollback()
+    #         raise
+    #     finally:
+    #         session.close()
+    #
+    # def get_session3(self):
+    #     return self.my_session3
 
     @staticmethod
     def _create_engine(conn_string: str):
         return create_engine(url=conn_string)
+
+    @staticmethod
+    def session_factory(db):
+        return db.get_session()
 
 
 # from contextlib import AbstractContextManager, contextmanager
