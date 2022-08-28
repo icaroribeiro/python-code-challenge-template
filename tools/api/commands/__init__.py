@@ -1,27 +1,36 @@
-from comd.api.config import config_by_name
-
 from flask import Flask
 
-from internal.di.di import AppContainer
+from internal.di.di import AppContainer, Core
 from internal.infrastructure.env.env import Env
 from internal.transport.presentation.handler.healthcheck import (
     handler as healthcheck_handler,
 )
 
+env = Env()
 
-def create_app(config_name):
-    env = Env()
+driver = env.get_env_with_default_value(key="DB_DRIVER", default_value="postgresql")
+user = env.get_env_with_default_value(key="DB_USER", default_value="postgres")
+password = env.get_env_with_default_value(key="DB_PASSWORD", default_value="postgres")
+host = env.get_env_with_default_value(key="DB_HOST", default_value="localhost")
+port = env.get_env_with_default_value(key="DB_PORT", default_value="5432")
+name = env.get_env_with_default_value(key="DB_NAME", default_value="testdb")
 
-    driver = env.get_env_with_default_value(key="DB_DRIVER", default_value="postgresql")
-    user = env.get_env_with_default_value(key="DB_USER", default_value="postgres")
-    password = env.get_env_with_default_value(
-        key="DB_PASSWORD", default_value="postgres"
-    )
-    host = env.get_env_with_default_value(key="DB_HOST", default_value="localhost")
-    port = env.get_env_with_default_value(key="DB_PORT", default_value="5432")
-    name = env.get_env_with_default_value(key="DB_NAME", default_value="testdb")
 
-    conn_string = "{driver}://{user}:{password}@{host}:{port}/{name}".format(
+def create_app():
+    _setup_config()
+    app_container = AppContainer()
+    app_container.wire(modules=[healthcheck_handler])
+    app = Flask(__name__)
+    app.register_blueprint(healthcheck_handler.blueprint)
+    return app
+
+
+def _setup_config():
+    Core.config.override({"datastore_conn_string": _build_datastore_conn_string()})
+
+
+def _build_datastore_conn_string():
+    return "{driver}://{user}:{password}@{host}:{port}/{name}".format(
         driver=driver,
         user=user,
         password=password,
@@ -29,22 +38,3 @@ def create_app(config_name):
         port=port,
         name=name,
     )
-
-    print("ABC1")
-
-    # Core.config.conn_string = conn_string
-    # Core.config.override({"conn_string": conn_string})
-    #
-    # print("ABC: ", Core.config.get("conn_string"))
-
-    app_container = AppContainer()
-    # app_container.config.from_yaml("config.yml")
-    app_container.config.override({"conn_string": conn_string, "abc": "kkkk"})
-    # print("DEF: ", app_container.config.get("abc"))
-    app_container.wire(modules=[healthcheck_handler])
-
-    app = Flask(__name__)
-    # app.config.from_object(config_by_name[config_name])
-    app.register_blueprint(healthcheck_handler.blueprint)
-
-    return app

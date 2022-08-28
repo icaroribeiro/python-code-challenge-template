@@ -1,6 +1,6 @@
 from tools.api.commands import create_app
 
-app = create_app("dev")
+app = create_app()
 
 
 class RunCmd:

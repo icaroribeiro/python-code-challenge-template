@@ -1,8 +1,12 @@
+import logging
+
 from sqlalchemy.orm import Session
 
 from internal.core.ports.application.service.healthcheck.service_interface import (
     IService,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class Service(IService):
@@ -15,15 +19,7 @@ class Service(IService):
         try:
             self.session.execute("SELECT 1")
         except (Exception,) as e:
-            print("Error: ", e)
+            logger.error("%s", e)
             is_database_working = False
 
         return is_database_working
-
-
-class TestService:
-    def __init__(self, test) -> None:
-        self.test = test
-
-    def get_test(self):
-        return self.test
