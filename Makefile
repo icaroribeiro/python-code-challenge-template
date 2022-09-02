@@ -26,7 +26,8 @@ run-api:
 #
 test-api:
 	. ./scripts/setup_env_vars.test.sh; \
-	poetry run pytest
+	poetry run coverage run -m pytest internal && coverage report > ./docs/api/tests/unit/coverage_report.out; \
+	poetry run pytest tests/api
 
 #
 # Set of tasks related to APP container
@@ -36,3 +37,15 @@ startup-app:
 
 shutdown-app:
 	docker-compose down -v --rmi all
+
+#
+# Set of tasks related to APP container testing
+#
+start-deps:
+	docker-compose up -d --build postgrestestdb
+
+finish-deps:
+	docker-compose rm --force --stop -v postgrestestdb
+
+test-app:
+	docker exec --env-file ./.env.test api_container poetry run coverage run -m pytest && coverage report > ./docs/api/tests/coverage_report.out
