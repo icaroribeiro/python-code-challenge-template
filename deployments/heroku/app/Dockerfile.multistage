@@ -29,8 +29,16 @@ RUN apt-get update \
     && curl -sSL https://install.python-poetry.org | python3 \
     && chmod 755 ${POETRY_HOME}/bin/poetry
 
-# Create the folder /app/.venv and install runtime dependencies.
-RUN poetry install --no-dev --no-root --no-ansi
+RUN python -m venv /venv
+
+RUN . /venv/bin/activate \
+    && poetry install --no-dev --no-root --no-ansi
+
+COPY . .
+
+ENV POETRY_HOME="/opt/poetry"
+RUN . /venv/bin/activate
+RUN poetry build
 
 ##
 ## Deploy
@@ -51,9 +59,9 @@ WORKDIR /app
 
 # Copy the venv folder from the previous stage.
 COPY --from=builder /app/.venv ./venv
-COPY docker-entrypoint.sh ./
 
-RUN . ./venv/bin/activate && pip install *.whl
+RUN . ./venv/bin/activate && pip3 install *.whl
+
 CMD ["./docker-entrypoint.sh"]
 
 # Command to run the application.
