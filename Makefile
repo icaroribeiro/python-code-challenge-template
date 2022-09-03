@@ -49,3 +49,11 @@ finish-deps:
 
 test-app:
 	docker exec --env-file ./.env.test api_container poetry run coverage run -m pytest && coverage report > ./docs/api/tests/coverage_report.out
+
+#
+# Set of tasks related to APP deployment.
+#
+test-deploy:
+	. ./deployments/heroku/scripts/build_app.sh; \
+	cd deployments/heroku/app; \
+    docker build -f Dockerfile.multistage -t abc .

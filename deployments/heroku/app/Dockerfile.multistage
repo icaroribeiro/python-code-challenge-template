@@ -1,19 +1,18 @@
 # Dockerfile References: https://docs.docker.com/engine/reference/builder/
-
+##
+## Build
+##
 # It starts from the python base image.
-FROM python:3.10
+FROM python:3.10 as builder
 
 # Add maintainer info.
 LABEL maintainer="Ícaro Ribeiro <icaroribeiro@hotmail.com>"
 
-# Set the environment variable that deals with the application deployment in Heroku Platform.
-# ENV DEPLOY=NO
-
 # Set the working directory inside the container.
 WORKDIR /app
 
-# Copy the source from the current directory to the working directory inside the container.
-COPY . .
+# Copy the source code from the temporary directory to the working directory inside the container.
+COPY .temp .
 
 # Set up environment variables.
 ENV POETRY_HOME="/opt/poetry" \
@@ -33,5 +32,29 @@ RUN apt-get update \
 # Create the folder /app/.venv and install runtime dependencies.
 RUN poetry install --no-dev --no-root --no-ansi
 
+##
+## Deploy
+##
+# Second stage started from the slim base image.
+FROM python:3.10-slim
+
+# Set up the environment variables.
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PATH="/app/.venv/bin:$PATH"
+
+# Set the environment variable that deals with the application deployment in Heroku Platform.
+# ENV DEPLOY=YES
+
+# Set the working directory inside the container.
+WORKDIR /app
+
+# Copy the venv folder from the previous stage.
+COPY --from=builder /app/.venv ./venv
+COPY docker-entrypoint.sh ./
+
+RUN . ./venv/bin/activate && pip install *.whl
+CMD ["./docker-entrypoint.sh"]
+
 # Command to run the application.
-CMD [ "poetry", "run", "python", "-m", "flask", "run", "--host=0.0.0.0" ]
+# CMD [ "poetry", "run", "python", "-m", "flask", "run", "--host=0.0.0.0" ]
