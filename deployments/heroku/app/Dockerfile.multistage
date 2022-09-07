@@ -16,7 +16,6 @@ COPY .temp .
 
 # Set up environment variables.
 ENV POETRY_HOME="/opt/poetry" \
-    #POETRY_VIRTUALENVS_CREATE=false \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
     POETRY_NO_INTERACTION=1
 
@@ -29,40 +28,28 @@ RUN apt-get update \
     && curl -sSL https://install.python-poetry.org | python3 \
     && chmod 755 ${POETRY_HOME}/bin/poetry
 
-RUN python -m venv /venv
+# RUN python -m venv /venv
 
-RUN . /venv/bin/activate \
-    && poetry install --no-dev --no-root --no-ansi
+RUN poetry install --only main --no-root --no-ansi
 
-COPY . .
-
-ENV POETRY_HOME="/opt/poetry"
-RUN . /venv/bin/activate
-RUN poetry build
-
-##
-## Deploy
-##
-# Second stage started from the slim base image.
 FROM python:3.10-slim
 
-# Set up the environment variables.
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
+    PYTHONPATH="/app/" \
+    FLASK_APP="/app/tools/api/commands/run" \
     PATH="/app/.venv/bin:$PATH"
 
-# Set the environment variable that deals with the application deployment in Heroku Platform.
-# ENV DEPLOY=YES
-
-# Set the working directory inside the container.
 WORKDIR /app
 
-# Copy the venv folder from the previous stage.
-COPY --from=builder /app/.venv ./venv
+# copy the venv folder from builder image
+COPY --from=builder /app .
 
-RUN . ./venv/bin/activate && pip3 install *.whl
+# RUN . /app/.venv/bin/activate
+# RUN . /app/.venv/bin/opt/poetry/env
+# RUN /app/.venv/bin/opt/poetry/bin/poetry
 
-CMD ["./docker-entrypoint.sh"]
-
-# Command to run the application.
-# CMD [ "poetry", "run", "python", "-m", "flask", "run", "--host=0.0.0.0" ]
+# CMD [ "sh", "-c", "python /app/comd/api/main.py run"
+# CMD [ "sh", "-c", ". /app/.venv/bin/activate python" ]
+# CMD [ "sh", "-c", ". .venv/bin/activate; poetry run python -m flask run --host=0.0.0.0" ]
+CMD [ "sh", "-c", ". .venv/bin/activate; python comd/api/main.py run" ]

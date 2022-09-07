@@ -17,8 +17,7 @@ COPY . .
 
 # Set up environment variables.
 ENV POETRY_HOME="/opt/poetry" \
-    #POETRY_VIRTUALENVS_CREATE=false \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
     POETRY_NO_INTERACTION=1
 
 # It is to run poetry directly as soon as it's installed.
@@ -31,7 +30,7 @@ RUN apt-get update \
     && chmod 755 ${POETRY_HOME}/bin/poetry
 
 # Create the folder /app/.venv and install runtime dependencies.
-RUN poetry install --no-dev --no-root --no-ansi
+RUN poetry install --only main --no-root --no-ansi
 
 # Command to run the application.
 CMD [ "poetry", "run", "python", "-m", "flask", "run", "--host=0.0.0.0" ]
