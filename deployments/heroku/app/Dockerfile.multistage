@@ -12,7 +12,8 @@ LABEL maintainer="Ícaro Ribeiro <icaroribeiro@hotmail.com>"
 WORKDIR /app
 
 # Copy the source code from the temporary directory to the working directory inside the container.
-COPY .temp .
+# COPY .temp .
+COPY . .
 
 # Set up environment variables.
 ENV POETRY_HOME="/opt/poetry" \
@@ -25,6 +26,7 @@ ENV PATH="$POETRY_HOME/bin:$PATH"
 # Install curl and poetry.
 RUN apt-get update \
     && apt-get install -y curl \
+    && apt-get install -y libpq-dev gcc \
     && curl -sSL https://install.python-poetry.org | python3 \
     && chmod 755 ${POETRY_HOME}/bin/poetry
 
@@ -36,14 +38,19 @@ FROM python:3.10-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PYTHONPATH="/app/" \
-    FLASK_APP="/app/tools/api/commands/run" \
+    PYTHONPATH="$PYTHONPATH:/app" \
+#    FLASK_APP="/app/tools/api/commands/run" \
     PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
 
 # copy the venv folder from builder image
 COPY --from=builder /app .
+
+RUN apt-get update \
+    && apt-get install -y libpq-dev gcc
+
+# RUN apt-get update && apt-get -y install libpq-dev gcc
 
 # RUN . /app/.venv/bin/activate
 # RUN . /app/.venv/bin/opt/poetry/env
