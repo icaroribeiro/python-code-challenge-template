@@ -5,7 +5,7 @@ services:
     container_name: api_container
     build:
       context: .
-      dockerfile: ./deployments/heroku/app/Dockerfile.multistage
+      dockerfile: Dockerfile.multistage
     env_file:
       - ./.env
     restart: on-failure
