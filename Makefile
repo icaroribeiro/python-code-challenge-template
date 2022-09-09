@@ -26,8 +26,8 @@ run-api:
 #
 test-api:
 	. ./scripts/setup_env_vars.test.sh; \
-	poetry run coverage run -m pytest internal && coverage report > ./docs/api/tests/unit/coverage_report.out; \
-	poetry run pytest tests/api
+	poetry run coverage run --source=internal/ -m pytest internal; \
+	poetry run coverage report -m > ./docs/api/tests/unit/coverage_report.out
 
 #
 # Set of tasks related to APP container
@@ -42,18 +42,18 @@ shutdown-app:
 # Set of tasks related to APP container testing
 #
 start-deps:
-	docker-compose up -d --build postgrestestdb
+	docker build -t postgrestestdb -f ./database/postgres/Dockerfile .; \
+	docker run --name postgrestestdb_container --env-file ./database/postgres/.env.test -d -h 0.0.0.0 -p 5434:5432 --restart on-failure postgrestestdb
 
 finish-deps:
-	docker-compose rm --force --stop -v postgrestestdb
+	docker stop postgrestestdb_container; \
+	docker rm postgrestestdb_container; \
+	docker rmi postgrestestdb
 
 test-app:
-	docker exec --env-file ./.env.test api_container poetry run coverage run -m pytest && coverage report > ./docs/api/tests/coverage_report.out
-
-#
-# Set of tasks related to APP deployment.
-#
-test-deploy:
-	. ./deployments/heroku/scripts/build_app.sh; \
-	cd deployments/heroku/app; \
-    docker build -f Dockerfile.multistage -t abc .
+	docker build -t apitest -f Dockerfile .; \
+	docker run --name apitest_container --env-file ./.env.test -d -p 5000:5000 --restart on-failure apitest; \
+	docker exec --env-file ./.env.test apitest_container poetry run pytest
+	docker stop apitest_container; \
+ 	docker rm apitest_container; \
+ 	docker rmi apitest

@@ -46,4 +46,6 @@ COPY --from=builder /app .
 RUN apt-get update \
     && apt-get install -y libpq-dev gcc
 
-CMD [ "sh", "-c", ". .venv/bin/activate; python comd/api/main.py run" ]
+RUN . .venv/bin/activate
+
+CMD [ "sh", "-c", "python comd/api/main.py run" ]
