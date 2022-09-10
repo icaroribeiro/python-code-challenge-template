@@ -5,9 +5,9 @@ services:
     container_name: api_container
     build:
       context: .
-      dockerfile: Dockerfile.multistage
+      dockerfile: Dockerfile.prod
     env_file:
-      - ./.env
+      - ./.env.prod
     restart: on-failure
     ports:
       - "5000:5000"
@@ -22,7 +22,7 @@ services:
       context: ./database/postgres
       dockerfile: Dockerfile
     env_file:
-      - ./database/postgres/.env
+      - ./database/postgres/.env.prod
     restart: on-failure
     ports:
       - "5433:5432"

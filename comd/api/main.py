@@ -1,7 +1,7 @@
 import typer
 
-from tools.api.commands.run import RunCmd
-from tools.api.commands.version import VersionCmd
+from internal.tools.api.commands.run import RunCmd
+from internal.tools.api.commands.version import VersionCmd
 
 app = typer.Typer()
 

@@ -8,7 +8,7 @@ export PYTHONPATH="$PWD"
 #
 # Python Flask settings.
 #
-export FLASK_APP="tools/api/commands/run"
+export FLASK_APP="internal/tools/api/commands/run"
 
 #
 # HTTP server settings

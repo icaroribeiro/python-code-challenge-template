@@ -8,12 +8,12 @@ export PYTHONPATH="$PWD"
 #
 # Python Flask settings.
 #
-export FLASK_APP="tools/api/commands/run"
+export FLASK_APP="internal/tools/api/commands/run"
 
 #
 # HTTP server settings
 #
-export HTTP_PORT="5000"
+export HTTP_PORT="5001"
 
 #
 # Database settings
@@ -22,5 +22,5 @@ export DB_DRIVER="postgresql"
 export DB_USER="postgres"
 export DB_PASSWORD="postgres"
 export DB_HOST="localhost"
-export DB_PORT="5432"
-export DB_NAME="testdb"
+export DB_PORT="5434"
+export DB_NAME="testdb2"
