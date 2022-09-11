@@ -1,0 +1,27 @@
+Name                                                                Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------------------------------------
+tests\__init__.py                                                       0      0   100%
+tests\api\__init__.py                                                   0      0   100%
+tests\api\healthcheck\__init__.py                                       0      0   100%
+tests\api\healthcheck\test_get_status.py                                0      0   100%
+tests\api\healthcheck\test_integration_fixtures.py                      0      0   100%
+tests\api\integration_test.py                                          34     22    35%   12-34, 38-40, 44-54
+tests\api\user\__init__.py                                              0      0   100%
+tests\api\user\test_create.py                                           3      0   100%
+tests\api\user\test_delete.py                                           0      0   100%
+tests\api\user\test_get_all.py                                          0      0   100%
+tests\api\user\test_get_by_id.py                                        0      0   100%
+tests\api\user\test_integration_fixtures.py                             0      0   100%
+tests\api\user\test_update.py                                           0      0   100%
+tests\factory\__init__.py                                               0      0   100%
+tests\factory\core\__init__.py                                          0      0   100%
+tests\factory\core\domain\__init__.py                                   0      0   100%
+tests\factory\core\domain\entity\__init__.py                            0      0   100%
+tests\factory\core\domain\entity\user.py                                8      8     0%   1-12
+tests\factory\infrastructure\__init__.py                                0      0   100%
+tests\factory\infrastructure\storage\__init__.py                        0      0   100%
+tests\factory\infrastructure\storage\datastore\__init__.py              0      0   100%
+tests\factory\infrastructure\storage\datastore\entity\__init__.py       0      0   100%
+tests\factory\infrastructure\storage\datastore\entity\user.py          14     14     0%   1-21
+-------------------------------------------------------------------------------------------------
+TOTAL                                                                  59     44    25%

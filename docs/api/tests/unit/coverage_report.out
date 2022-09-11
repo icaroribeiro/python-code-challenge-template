@@ -4,9 +4,9 @@ internal\__init__.py                                                            
 internal\application\__init__.py                                                                   0      0   100%
 internal\application\service\__init__.py                                                           0      0   100%
 internal\application\service\healthcheck\__init__.py                                               0      0   100%
-internal\application\service\healthcheck\service.py                                               15      8    47%   14, 17-25
-internal\application\service\healthcheck\test_get_status.py                                        5      2    60%   8-10
-internal\application\service\healthcheck\test_service_fixtures.py                                  7      1    86%   10
+internal\application\service\healthcheck\service.py                                               15      3    80%   21-23
+internal\application\service\healthcheck\test_get_status.py                                        5      0   100%
+internal\application\service\healthcheck\test_service_fixtures.py                                  7      0   100%
 internal\application\service\user\__init__.py                                                      0      0   100%
 internal\application\service\user\service.py                                                      18      4    78%   20, 23, 26, 29
 internal\application\service\user\test_create.py                                                  16      0   100%
@@ -44,15 +44,15 @@ internal\infrastructure\storage\datastore\__init__.py                           
 internal\infrastructure\storage\datastore\base.py                                                  2      0   100%
 internal\infrastructure\storage\datastore\datastore.py                                            12     12     0%   1-16
 internal\infrastructure\storage\datastore\entity\__init__.py                                       0      0   100%
-internal\infrastructure\storage\datastore\entity\user.py                                          17      2    88%   37, 40
+internal\infrastructure\storage\datastore\entity\user.py                                          17      0   100%
 internal\infrastructure\storage\datastore\repository\__init__.py                                   0      0   100%
 internal\infrastructure\storage\datastore\repository\user\__init__.py                              0      0   100%
-internal\infrastructure\storage\datastore\repository\user\repository.py                           27     15    44%   13, 18-24, 29-31, 36-42, 47-55, 60-68
-internal\infrastructure\storage\datastore\repository\user\test_create.py                          11      6    45%   10-18
+internal\infrastructure\storage\datastore\repository\user\repository.py                           27      6    78%   47-55, 60-68
+internal\infrastructure\storage\datastore\repository\user\test_create.py                          11      0   100%
 internal\infrastructure\storage\datastore\repository\user\test_delete.py                           0      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_get_all.py                         15      9    40%   12-20, 25-27
-internal\infrastructure\storage\datastore\repository\user\test_get_by_id.py                       25     17    32%   14-22, 27-35, 40-44
-internal\infrastructure\storage\datastore\repository\user\test_repository_fixtures.py             11      2    82%   13, 17
+internal\infrastructure\storage\datastore\repository\user\test_get_all.py                         15      0   100%
+internal\infrastructure\storage\datastore\repository\user\test_get_by_id.py                       25      0   100%
+internal\infrastructure\storage\datastore\repository\user\test_repository_fixtures.py             11      0   100%
 internal\infrastructure\storage\datastore\repository\user\test_update.py                           0      0   100%
 internal\presentation\__init__.py                                                                  0      0   100%
 internal\presentation\entity\__init__.py                                                           0      0   100%
@@ -69,4 +69,4 @@ internal\tools\api\commands\__init__.py                                         
 internal\tools\api\commands\run.py                                                                11     11     0%   1-17
 internal\tools\api\commands\version.py                                                             8      8     0%   1-12
 ----------------------------------------------------------------------------------------------------------------------------
-TOTAL                                                                                            339    169    50%
+TOTAL                                                                                            339    116    66%

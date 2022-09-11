@@ -19,8 +19,8 @@ class IntegrationTest:
             key="DB_PASSWORD", default_value="postgres"
         )
         host = env.get_env_with_default_value(key="DB_HOST", default_value="localhost")
-        port = env.get_env_with_default_value(key="DB_PORT", default_value="5434")
-        name = env.get_env_with_default_value(key="DB_NAME", default_value="testdb2")
+        port = env.get_env_with_default_value(key="DB_PORT", default_value="5432")
+        name = env.get_env_with_default_value(key="DB_NAME", default_value="testdb")
 
         conn_string = "{driver}://{user}:{password}@{host}:{port}/{name}".format(
             driver=driver,
