@@ -40,7 +40,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# copy the venv folder from builder image
+# Copy the venv folder from builder image.
 COPY --from=builder /app .
 
 RUN apt-get update \
@@ -48,4 +48,5 @@ RUN apt-get update \
 
 RUN . .venv/bin/activate
 
+# Command to run the application.
 CMD [ "sh", "-c", "python comd/api/main.py run" ]
