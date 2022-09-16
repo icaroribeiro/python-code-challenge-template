@@ -1,22 +1,10 @@
-import typer
+from comd.api import create_app
+from internal.infrastructure.env.env import Env
 
-from internal.tools.api.commands.run import RunCmd
-from internal.tools.api.commands.version import VersionCmd
+env = Env()
 
-app = typer.Typer()
-
-
-@app.command()
-def version():
-    cmd1 = VersionCmd()
-    cmd1.run()
-
-
-@app.command()
-def run():
-    cmd1 = RunCmd()
-    cmd1.run()
-
+http_port = env.get_env_with_default_value(key="HTTP_PORT", default_value="5000")
 
 if __name__ == "__main__":
-    app()
+    app = create_app()
+    app.run(host="0.0.0.0", port=http_port)

@@ -150,6 +150,17 @@ async = ["asgiref (>=3.2)"]
 dotenv = ["python-dotenv"]
 
 [[package]]
+name = "flask-api"
+version = "3.0.post1"
+description = "Browsable web APIs for Flask."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Flask = ">=2.0"
+
+[[package]]
 name = "flask-injector"
 version = "0.14.0"
 description = "Adds Injector, a Dependency Injection framework, support to Flask."
@@ -539,7 +550,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "fe17867ad3dcc815f67e513ea34679c8d65437c1e18441d95fecd0698f7f4771"
+content-hash = "493606ad2f17dde474c9ac3cb18f402ef4ab534be0900542d5275d9b2f4a07da"
 
 [metadata.files]
 aniso8601 = [
@@ -608,6 +619,7 @@ flask = [
     {file = "Flask-2.1.2-py3-none-any.whl", hash = "sha256:fad5b446feb0d6db6aec0c3184d16a8c1f6c3e464b511649c8918a9be100b4fe"},
     {file = "Flask-2.1.2.tar.gz", hash = "sha256:315ded2ddf8a6281567edb27393010fe3406188bafbfe65a3339d5787d89e477"},
 ]
+flask-api = []
 flask-injector = [
     {file = "Flask-Injector-0.14.0.tar.gz", hash = "sha256:f116c24bb3e3e34ca3e41a940eab6178ede41954d27bb02f8a044f128d750dbc"},
     {file = "Flask_Injector-0.14.0-py2.py3-none-any.whl", hash = "sha256:b5330106b02352d55cd2fd8e44b649a2fede5c17d703eea8ea72591314ff0b63"},

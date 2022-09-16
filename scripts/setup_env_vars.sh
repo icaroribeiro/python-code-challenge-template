@@ -6,11 +6,6 @@
 export PYTHONPATH="$PWD"
 
 #
-# Python Flask settings.
-#
-export FLASK_APP="internal/tools/api/commands/run"
-
-#
 # HTTP server settings
 #
 export HTTP_PORT="5000"

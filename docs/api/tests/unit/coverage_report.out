@@ -53,20 +53,15 @@ internal\infrastructure\storage\datastore\repository\user\test_delete.py        
 internal\infrastructure\storage\datastore\repository\user\test_get_all.py                         15      0   100%
 internal\infrastructure\storage\datastore\repository\user\test_get_by_id.py                       25      0   100%
 internal\infrastructure\storage\datastore\repository\user\test_repository_fixtures.py             11      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_update.py                           0      0   100%
+internal\infrastructure\storage\datastore\repository\user\test_update.py                           3      0   100%
 internal\presentation\__init__.py                                                                  0      0   100%
-internal\presentation\entity\__init__.py                                                           0      0   100%
-internal\presentation\entity\user.py                                                               4      4     0%   1-6
-internal\presentation\handler\__init__.py                                                          0      0   100%
-internal\presentation\handler\healthcheck\__init__.py                                              0      0   100%
-internal\presentation\handler\healthcheck\handler.py                                              11     11     0%   1-20
-internal\presentation\handler\user\__init__.py                                                     0      0   100%
-internal\presentation\handler\user\handler.py                                                      0      0   100%
-internal\tools\__init__.py                                                                         0      0   100%
-internal\tools\api\__init__.py                                                                     0      0   100%
-internal\tools\api\api.py                                                                          1      1     0%   1
-internal\tools\api\commands\__init__.py                                                           22     22     0%   1-33
-internal\tools\api\commands\run.py                                                                11     11     0%   1-17
-internal\tools\api\commands\version.py                                                             8      8     0%   1-12
+internal\presentation\rest_api\__init__.py                                                         0      0   100%
+internal\presentation\rest_api\entity\__init__.py                                                  0      0   100%
+internal\presentation\rest_api\entity\user.py                                                      4      4     0%   1-6
+internal\presentation\rest_api\handler\__init__.py                                                 0      0   100%
+internal\presentation\rest_api\handler\healthcheck\__init__.py                                     0      0   100%
+internal\presentation\rest_api\handler\healthcheck\handler.py                                     11     11     0%   1-20
+internal\presentation\rest_api\handler\user\__init__.py                                            0      0   100%
+internal\presentation\rest_api\handler\user\handler.py                                             0      0   100%
 ----------------------------------------------------------------------------------------------------------------------------
-TOTAL                                                                                            339    116    66%
+TOTAL                                                                                            300     74    75%

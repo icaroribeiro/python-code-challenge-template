@@ -1,5 +1,6 @@
 #
-# Set of tasks related to API building and running locally.
+# API building and running locally
+# Set of tasks related to API building and running.
 #
 setup-api:
 	. .venv/Scripts/activate; \
@@ -13,15 +14,12 @@ lint-api:
 	poetry run black . --check; \
 	poetry run isort . --check-only --diff
 
-checkversion-api:
-	. ./scripts/setup_env_vars.sh; \
-	poetry run python comd/api/main.py version
-
 run-api:
 	. ./scripts/setup_env_vars.sh; \
-	poetry run python comd/api/main.py run
+	poetry run python cmd/api/main.py
 
 #
+# API test
 # Set of tasks related to API testing locally.
 #
 test-api:
@@ -30,7 +28,8 @@ test-api:
 	poetry run coverage run --source=tests/ -m pytest tests && poetry run coverage report -m > ./docs/api/tests/integration/coverage_report.out
 
 #
-# Set of tasks related to APP test container testing.
+# APP test container
+# Set of tasks related to APP testing container.
 #
 start-deps:
 	docker network create testapp_network; \
@@ -56,6 +55,7 @@ finish-deps:
 	docker network rm testapp_network
 
 #
+# APP production container
 # Set of tasks related to APP production container starting up and shutting down.
 #
 startup-app:
