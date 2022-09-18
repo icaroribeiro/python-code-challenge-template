@@ -1,5 +1,5 @@
 import uuid
-from typing import List
+from typing import List, Optional
 
 from internal.core.domain.entity.user import User
 from internal.core.ports.infrastructure.storage.datastore.repository.user.repository_interface import (
@@ -16,9 +16,7 @@ class Repository(IRepository):
         user_datastore: UserDatastore
 
         user_datastore = UserDatastore.from_domain(domain=user)
-
         self.session.add(user_datastore)
-
         self.session.commit()
 
         return user_datastore.to_domain()
@@ -41,28 +39,28 @@ class Repository(IRepository):
 
         return user_datastore.to_domain() if user_datastore else None
 
-    def update(self, id: str, user: User) -> User:
+    def update(self, id: str, user: User) -> Optional[User]:
         user_datastore: UserDatastore
 
-        user_datastore = (
+        counter = (
             self.session.query(UserDatastore)
-            .filter(UserDatastore.id == uuid.UUID(id))
-            .update({UserDatastore.username: user.username}, synchronizesession=False)
+            .filter(UserDatastore.id == id)
+            .update({UserDatastore.username: user.username}, synchronize_session='fetch')
         )
 
+        if counter == 0:
+            return None
+
         self.session.commit()
+        return user
 
-        return user_datastore.to_domain()
-
-    def delete(self, id: str) -> User:
+    def delete(self, id: str) -> int:
         user_datastore: UserDatastore
 
-        user_datastore = (
+        deleted_user_counter = (
             self.session.query(UserDatastore)
             .filter(UserDatastore.id == uuid.UUID(id))
             .delete()
         )
 
-        self.session.commit()
-
-        return user_datastore.to_domain()
+        return deleted_user_counter

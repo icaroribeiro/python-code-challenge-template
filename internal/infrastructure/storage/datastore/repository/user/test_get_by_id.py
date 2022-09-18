@@ -1,5 +1,3 @@
-import uuid
-
 from internal.infrastructure.storage.datastore.entity.user import User as UserDatastore
 from internal.infrastructure.storage.datastore.repository.user.test_repository_fixtures import (
     TestRepositoryFixtures,
@@ -16,10 +14,12 @@ class TestGetById(TestRepositoryFixtures):
         session.add(user_datastore)
         session.commit()
 
-        returned_user = repository.get_by_id(id=str(user.id))
+        id = str(user_datastore.id)
 
-        assert user.id == str(returned_user.id)
-        assert user.username == returned_user.username
+        returned_user = repository.get_by_id(id=id)
+
+        assert user_datastore.id == returned_user.id
+        assert user_datastore.username == returned_user.username
 
     def test_get_by_id_should_return_none_if_id_is_not_found(
         self, session, repository, fake
@@ -30,7 +30,7 @@ class TestGetById(TestRepositoryFixtures):
         session.add(user_datastore)
         session.commit()
 
-        returned_user = repository.get_by_id(id=str(id))
+        returned_user = repository.get_by_id(id=id)
 
         assert returned_user is None
 
@@ -39,6 +39,6 @@ class TestGetById(TestRepositoryFixtures):
     ):
         id = fake.uuid4()
 
-        returned_user = repository.get_by_id(id=str(id))
+        returned_user = repository.get_by_id(id=id)
 
         assert returned_user is None

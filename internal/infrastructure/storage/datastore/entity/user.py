@@ -37,4 +37,4 @@ class User(Base):
         return cls(id=domain.id, username=domain.username)
 
     def to_domain(self):
-        return UserDomain(id=self.id, username=self.username)
+        return UserDomain(id=self.id, username=str(self.username))

@@ -16,9 +16,11 @@ class TestGetAll(TestRepositoryFixtures):
 
         returned_users = repository.get_all()
 
+        expected_users = [user_datastore.to_domain() for user_datastore in user_datastore_list]
+
         assert len(user_datastore_list) == len(returned_users)
         assert {
-            user_datastore.to_domain() for user_datastore in user_datastore_list
+                   expected_user for expected_user in expected_users
         } == {returned_user for returned_user in returned_users}
 
     def test_get_all_should_empty_list_if_there_are_no_records(self, repository):

@@ -11,8 +11,10 @@ class TestCreate(TestRepositoryFixtures):
 
         returned_user = repository.create(user)
 
-        count = session.query(UserDatastore).count()
+        counter = session.query(UserDatastore).count()
 
-        assert count > 0
+        expected_counter = 0
+
+        assert counter > expected_counter
         assert user.id == str(returned_user.id)
         assert user.username == returned_user.username
