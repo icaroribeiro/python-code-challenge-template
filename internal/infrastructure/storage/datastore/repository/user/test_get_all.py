@@ -23,7 +23,7 @@ class TestGetAll(TestRepositoryFixtures):
                    expected_user for expected_user in expected_users
         } == {returned_user for returned_user in returned_users}
 
-    def test_get_all_should_empty_list_if_there_are_no_records(self, repository):
+    def test_get_all_should_return_an_empty_list_if_there_is_no_user(self, repository):
         returned_users = repository.get_all()
 
         assert [] == returned_users

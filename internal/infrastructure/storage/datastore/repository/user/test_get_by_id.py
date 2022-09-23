@@ -34,7 +34,7 @@ class TestGetById(TestRepositoryFixtures):
 
         assert returned_user is None
 
-    def test_get_by_id_should_return_none_if_there_are_no_records(
+    def test_get_by_id_should_return_none_if_there_is_no_user(
         self, session, repository, fake
     ):
         id = fake.uuid4()

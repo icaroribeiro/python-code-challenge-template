@@ -6,7 +6,7 @@ from tests.factory.core.domain.entity.user import UserFactory
 
 
 class TestUpdate(TestRepositoryFixtures):
-    def test_update_user_should_succeed_in_updating_the_user(self, session, repository, fake):
+    def test_update_should_succeed_in_updating_the_user(self, session, repository, fake):
         user = UserFactory()
         user_datastore = UserDatastore.from_domain(domain=user)
         session.add(user_datastore)
@@ -28,7 +28,7 @@ class TestUpdate(TestRepositoryFixtures):
         assert expected_updated_user.id == returned_updated_user.id
         assert expected_updated_user.username == returned_updated_user.username
 
-    def test_update_user_should_not_succeed_in_updating_the_user_if_user_id_is_not_found(self, session, repository, fake):
+    def test_update_should_not_succeed_in_updating_the_user_if_user_id_is_not_found(self, session, repository, fake):
         user = UserFactory()
         user_datastore = UserDatastore.from_domain(domain=user)
         session.add(user_datastore)
