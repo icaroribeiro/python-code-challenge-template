@@ -1,12 +1,12 @@
-from flask_restplus import Namespace, fields
+import uuid
+from dataclasses import dataclass
 
 
+@dataclass(frozen=True, eq=True)
 class User:
-    api = Namespace("user", description="It refers to the operations related to user.")
-    user = api.model(
-        "user",
-        {
-            "id": fields.String(),
-            "username": fields.String(),
-        },
-    )
+    username: str
+    id: uuid.UUID
+
+    @classmethod
+    def from_domain(cls, domain):
+        return cls(id=domain.id, username=domain.username)

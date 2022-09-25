@@ -5,16 +5,16 @@ internal\application\__init__.py                                                
 internal\application\service\__init__.py                                                           0      0   100%
 internal\application\service\healthcheck\__init__.py                                               0      0   100%
 internal\application\service\healthcheck\service.py                                               15      3    80%   21-23
-internal\application\service\healthcheck\test_get_status.py                                        5      0   100%
+internal\application\service\healthcheck\test_get_status.py                                       10      0   100%
 internal\application\service\healthcheck\test_service_fixtures.py                                  7      0   100%
 internal\application\service\user\__init__.py                                                      0      0   100%
-internal\application\service\user\service.py                                                      18      4    78%   20, 23, 26, 29
-internal\application\service\user\test_create.py                                                  16      0   100%
-internal\application\service\user\test_delete.py                                                   0      0   100%
-internal\application\service\user\test_get_all.py                                                  0      0   100%
-internal\application\service\user\test_get_by_id.py                                                0      0   100%
+internal\application\service\user\service.py                                                      18      0   100%
+internal\application\service\user\test_create.py                                                  18      0   100%
+internal\application\service\user\test_delete.py                                                  16      0   100%
+internal\application\service\user\test_get_all.py                                                 21      0   100%
+internal\application\service\user\test_get_by_id.py                                               15      0   100%
 internal\application\service\user\test_service_fixtures.py                                        15      0   100%
-internal\application\service\user\test_update.py                                                   0      0   100%
+internal\application\service\user\test_update.py                                                  17      0   100%
 internal\core\__init__.py                                                                          0      0   100%
 internal\core\domain\__init__.py                                                                   0      0   100%
 internal\core\domain\entity\__init__.py                                                            0      0   100%
@@ -53,7 +53,7 @@ internal\infrastructure\storage\datastore\repository\user\test_delete.py        
 internal\infrastructure\storage\datastore\repository\user\test_get_all.py                         16      0   100%
 internal\infrastructure\storage\datastore\repository\user\test_get_by_id.py                       25      0   100%
 internal\infrastructure\storage\datastore\repository\user\test_repository_fixtures.py             11      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_update.py                          26      0   100%
+internal\infrastructure\storage\datastore\repository\user\test_update.py                          25      0   100%
 internal\presentation\__init__.py                                                                  0      0   100%
 internal\presentation\rest_api\__init__.py                                                         0      0   100%
 internal\presentation\rest_api\entity\__init__.py                                                  0      0   100%
@@ -64,4 +64,4 @@ internal\presentation\rest_api\handler\healthcheck\handler.py                   
 internal\presentation\rest_api\handler\user\__init__.py                                            0      0   100%
 internal\presentation\rest_api\handler\user\handler.py                                             0      0   100%
 ----------------------------------------------------------------------------------------------------------------------------
-TOTAL                                                                                            347     68    80%
+TOTAL                                                                                            422     64    85%

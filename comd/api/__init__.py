@@ -5,6 +5,9 @@ from internal.infrastructure.env.env import Env
 from internal.presentation.rest_api.handler.healthcheck import (
     handler as healthcheck_handler,
 )
+from internal.presentation.rest_api.handler.user import (
+    handler as user_handler,
+)
 
 env = Env()
 
@@ -22,8 +25,10 @@ def create_app():
     _setup_config()
     app_container = AppContainer()
     app_container.wire(modules=[healthcheck_handler])
+    app_container.wire(modules=[user_handler])
     app = Flask(__name__)
     app.register_blueprint(healthcheck_handler.blueprint)
+    app.register_blueprint(user_handler.blueprint)
     return app
 
 

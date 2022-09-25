@@ -14,12 +14,16 @@ class TestGetAll(TestServiceFixtures):
 
         assert users == returned_users
 
+        repository.get_all.assert_called_once()
+
     def test_get_all_should_return_an_empty_list_if_there_is_no_user(self, service, repository, fake):
         repository.get_all.return_value = []
 
         returned_users = service.get_all()
 
         assert [] == returned_users
+
+        repository.get_all.assert_called_once()
 
     def test_get_all_should_fail_if_an_exception_is_throw_when_getting_all_users(
             self, service, repository, fake
@@ -29,3 +33,5 @@ class TestGetAll(TestServiceFixtures):
         with pytest.raises(Exception) as ex:
             service.get_all()
             assert ex.value == "Failed!"
+
+        repository.get_all.assert_called_once()

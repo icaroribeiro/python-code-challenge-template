@@ -16,6 +16,8 @@ class TestCreate(TestServiceFixtures):
 
         assert user == returned_user
 
+        repository.create.assert_called_once_with(user)
+
     def test_create_should_fail_if_an_exception_is_throw_when_creating_a_user(
         self, service, repository, fake
     ):
@@ -26,3 +28,7 @@ class TestCreate(TestServiceFixtures):
         with pytest.raises(Exception) as ex:
             service.create(user=user)
             assert ex.value == "Failed!"
+
+        repository.create.assert_called_once_with(user)
+
+

@@ -39,6 +39,4 @@ class TestUpdate(TestRepositoryFixtures):
 
         returned_updated_user = repository.update(id=id, user=updated_user)
 
-        expected_updated_user = None
-
-        assert expected_updated_user == returned_updated_user
+        assert returned_updated_user is None

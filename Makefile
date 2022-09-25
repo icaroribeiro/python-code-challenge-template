@@ -16,7 +16,7 @@ lint-api:
 
 run-api:
 	. ./scripts/setup_env_vars.sh; \
-	poetry run python cmd/api/main.py
+	poetry run python comd/api/main.py
 
 #
 # API test
