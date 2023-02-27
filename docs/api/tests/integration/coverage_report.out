@@ -1,6 +1,19 @@
 Name                                                                Stmts   Miss  Cover   Missing
 -------------------------------------------------------------------------------------------------
 tests\__init__.py                                                       0      0   100%
+tests\api\__init__.py                                                   0      0   100%
+tests\api\api_test.py                                                  10      0   100%
+tests\api\handler\__init__.py                                           0      0   100%
+tests\api\handler\healthcheck\__init__.py                               0      0   100%
+tests\api\handler\healthcheck\test_get_status.py                        9      0   100%
+tests\api\handler\healthcheck\test_integration_fixtures.py              6      0   100%
+tests\api\handler\user\__init__.py                                      0      0   100%
+tests\api\handler\user\test_create.py                                   3      0   100%
+tests\api\handler\user\test_delete.py                                   0      0   100%
+tests\api\handler\user\test_get_all.py                                  0      0   100%
+tests\api\handler\user\test_get_by_id.py                                0      0   100%
+tests\api\handler\user\test_integration_fixtures.py                     0      0   100%
+tests\api\handler\user\test_update.py                                   0      0   100%
 tests\factory\__init__.py                                               0      0   100%
 tests\factory\core\__init__.py                                          0      0   100%
 tests\factory\core\domain\__init__.py                                   0      0   100%
@@ -11,19 +24,6 @@ tests\factory\infrastructure\storage\__init__.py                        0      0
 tests\factory\infrastructure\storage\datastore\__init__.py              0      0   100%
 tests\factory\infrastructure\storage\datastore\entity\__init__.py       0      0   100%
 tests\factory\infrastructure\storage\datastore\entity\user.py          14     14     0%   1-21
-tests\integration_test.py                                              34     13    62%   38-40, 44-54
-tests\rest_api\__init__.py                                              0      0   100%
-tests\rest_api\handler\__init__.py                                      0      0   100%
-tests\rest_api\handler\healthcheck\__init__.py                          0      0   100%
-tests\rest_api\handler\healthcheck\test_get_status.py                   9      0   100%
-tests\rest_api\handler\healthcheck\test_integration_fixtures.py         6      0   100%
-tests\rest_api\handler\user\__init__.py                                 0      0   100%
-tests\rest_api\handler\user\test_create.py                              3      0   100%
-tests\rest_api\handler\user\test_delete.py                              0      0   100%
-tests\rest_api\handler\user\test_get_all.py                             0      0   100%
-tests\rest_api\handler\user\test_get_by_id.py                           0      0   100%
-tests\rest_api\handler\user\test_integration_fixtures.py                0      0   100%
-tests\rest_api\handler\user\test_update.py                              0      0   100%
-tests\rest_api\rest_api_test.py                                        10      0   100%
+tests\integration_test.py                                              37     13    65%   26-28, 32-42
 -------------------------------------------------------------------------------------------------
-TOTAL                                                                  84     35    58%
+TOTAL                                                                  87     35    60%

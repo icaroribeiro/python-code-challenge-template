@@ -4,8 +4,8 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True, eq=True)
 class User:
-    username: str
     id: uuid.UUID
+    username: str
 
     @classmethod
     def from_domain(cls, domain):

@@ -1,3 +1,5 @@
+import pytest
+
 from internal.infrastructure.storage.datastore.entity.user import User as UserDatastore
 from internal.infrastructure.storage.datastore.repository.user.test_repository_fixtures import (
     TestRepositoryFixtures,

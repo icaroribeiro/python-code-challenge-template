@@ -18,14 +18,18 @@ run-api:
 	. ./scripts/setup_env_vars.sh; \
 	poetry run python comd/api/main.py
 
+
 #
 # API test
 # Set of tasks related to API testing locally.
 #
 test-api:
 	. ./scripts/setup_env_vars.test.sh; \
-	poetry run coverage run --source=internal/ -m pytest internal && poetry run coverage report -m > ./docs/api/tests/unit/coverage_report.out; \
-	poetry run coverage run --source=tests/ -m pytest tests && poetry run coverage report -m > ./docs/api/tests/integration/coverage_report.out
+	poetry run coverage run --source=internal/application,internal/infrastructure -m pytest internal; \
+	poetry run coverage report -m > ./docs/api/tests/unit/coverage_report.out; \
+	poetry run coverage run --source=tests/ -m pytest tests; \
+	poetry run coverage report -m > ./docs/api/tests/integration/coverage_report.out
+
 
 #
 # APP test container
@@ -33,15 +37,19 @@ test-api:
 #
 start-deps:
 	docker network create testapp_network; \
-	docker build -t postgrestestdb -f ./database/postgres/Dockerfile .; \
+	docker build -t postgrestestdb --no-cache -f ./database/postgres/Dockerfile .; \
 	docker run --name postgrestestdb_container --env-file ./database/postgres/.env.test -d -p 5434:5432 -v postgrestestdb-data:/var/lib/postgresql/data --restart on-failure postgrestestdb; \
 	docker network connect testapp_network postgrestestdb_container
 
-test-app:
+init-app:
 	docker build -t apitest -f ./tests/Dockerfile.test .; \
 	docker run --name apitest_container --env-file ./tests/.env.test -d -p 5001:5001 --restart on-failure apitest; \
-	docker network connect testapp_network apitest_container; \
-	docker exec --env-file ./tests/.env.test apitest_container poetry run pytest; \
+	docker network connect testapp_network apitest_container
+
+test-app:
+	docker exec --env-file ./tests/.env.test apitest_container poetry run pytest;
+
+destroy-app:
 	docker network disconnect testapp_network apitest_container; \
 	docker stop apitest_container; \
  	docker rm apitest_container; \
@@ -51,6 +59,7 @@ finish-deps:
 	docker network disconnect testapp_network postgrestestdb_container; \
 	docker stop postgrestestdb_container; \
 	docker rm postgrestestdb_container; \
+	docker volume rm postgrestestdb-data; \
 	docker rmi postgrestestdb; \
 	docker network rm testapp_network
 

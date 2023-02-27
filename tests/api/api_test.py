@@ -4,7 +4,7 @@ from comd.api import create_app
 from tests.integration_test import IntegrationTest
 
 
-class RestAPITest(IntegrationTest):
+class APITest(IntegrationTest):
     @pytest.fixture
     def test_client(self):
         flask_app = create_app()

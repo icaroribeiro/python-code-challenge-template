@@ -18,8 +18,8 @@ class Service(IService):
 
         try:
             self.session.execute("SELECT 1")
-        except (Exception,) as e:
-            logger.error("%s", e)
+        except (Exception,) as ex:
+            logger.error("%s", ex)
             is_database_working = False
 
         return is_database_working

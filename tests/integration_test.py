@@ -5,32 +5,20 @@ from sqlalchemy.orm import Session
 from internal.infrastructure.env.env import Env
 from internal.infrastructure.storage.datastore.base import Base
 
+env = Env()
+
+driver = env.get_env_with_default_value(key="DB_DRIVER", default_value="postgresql")
+user = env.get_env_with_default_value(key="DB_USER", default_value="postgres")
+password = env.get_env_with_default_value(key="DB_PASSWORD", default_value="postgres")
+host = env.get_env_with_default_value(key="DB_HOST", default_value="localhost")
+port = env.get_env_with_default_value(key="DB_PORT", default_value="5432")
+name = env.get_env_with_default_value(key="DB_NAME", default_value="testdb")
+
 
 class IntegrationTest:
     @pytest.fixture(scope="session", autouse=True)
     def engine(self):
-        env = Env()
-
-        driver = env.get_env_with_default_value(
-            key="DB_DRIVER", default_value="postgresql"
-        )
-        user = env.get_env_with_default_value(key="DB_USER", default_value="postgres")
-        password = env.get_env_with_default_value(
-            key="DB_PASSWORD", default_value="postgres"
-        )
-        host = env.get_env_with_default_value(key="DB_HOST", default_value="localhost")
-        port = env.get_env_with_default_value(key="DB_PORT", default_value="5432")
-        name = env.get_env_with_default_value(key="DB_NAME", default_value="testdb")
-
-        conn_string = "{driver}://{user}:{password}@{host}:{port}/{name}".format(
-            driver=driver,
-            user=user,
-            password=password,
-            host=host,
-            port=port,
-            name=name,
-        )
-
+        conn_string = self._build_datastore_conn_string()
         return create_engine(url=conn_string)
 
     @pytest.fixture(scope="session")
@@ -52,3 +40,14 @@ class IntegrationTest:
             session.close()
             transaction.rollback()
             connection.close()
+
+    @staticmethod
+    def _build_datastore_conn_string():
+        return "{driver}://{user}:{password}@{host}:{port}/{name}".format(
+            driver=driver,
+            user=user,
+            password=password,
+            host=host,
+            port=port,
+            name=name,
+        )
