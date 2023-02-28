@@ -47,3 +47,64 @@ def get_all_users(
     except (Exception,) as ex:
         logger.error("%s", ex)
         return jsonify({"error": ex}), status.HTTP_500_INTERNAL_SERVER_ERROR
+
+
+@blueprint.route("/users/<id>", methods=["GET"])
+@inject
+def get_user_by_id(
+    id,
+    service: UserService = Provide[AppContainer.service.user_service],
+):
+    try:
+        returned_domain_user = service.get_by_id(id=id)
+        if returned_domain_user:
+            return (
+                jsonify(User.from_domain(domain=returned_domain_user)),
+                status.HTTP_200_OK,
+            )
+
+        return jsonify({"error": "Not found"}), status.HTTP_404_NOT_FOUND
+    except (Exception,) as ex:
+        logger.error("%s", ex)
+        return jsonify({"error": ex}), status.HTTP_500_INTERNAL_SERVER_ERROR
+
+
+@blueprint.route("/users/<id>", methods=["PUT"])
+@inject
+def update_user(
+    id,
+    service: UserService = Provide[AppContainer.service.user_service],
+):
+    if request.json:
+        username = request.json["username"]
+        domain_user = DomainUser(username=username)
+        try:
+            returned_domain_user = service.update(id=id, user=domain_user)
+            if returned_domain_user:
+                user = User.from_domain(domain=returned_domain_user)
+                return jsonify(user), status.HTTP_200_OK
+
+            return jsonify({"error": "Not found"}), status.HTTP_404_NOT_FOUND
+        except (Exception,) as ex:
+            logger.error("%s", ex)
+            return jsonify({"error": ex}), status.HTTP_500_INTERNAL_SERVER_ERROR
+
+    return jsonify({"error": "Bad request"}), status.HTTP_400_BAD_REQUEST
+
+
+@blueprint.route("/users/<id>", methods=["DELETE"])
+@inject
+def delete_user(
+    id,
+    service: UserService = Provide[AppContainer.service.user_service],
+):
+    try:
+        returned_domain_user = service.delete(id=id)
+        if returned_domain_user:
+            user = User.from_domain(domain=returned_domain_user)
+            return jsonify(user), status.HTTP_200_OK
+
+        return jsonify({"error": "Not found"}), status.HTTP_404_NOT_FOUND
+    except (Exception,) as ex:
+        logger.error("%s", ex)
+        return jsonify({"error": ex}), status.HTTP_500_INTERNAL_SERVER_ERROR

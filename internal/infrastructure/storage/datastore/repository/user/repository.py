@@ -13,8 +13,6 @@ class Repository(IRepository):
         self.session = session
 
     def create(self, user: User) -> User:
-        user_datastore: UserDatastore
-
         user_datastore = UserDatastore.from_domain(domain=user)
         self.session.add(user_datastore)
         self.session.commit()
@@ -28,24 +26,34 @@ class Repository(IRepository):
 
         return [user_datastore.to_domain() for user_datastore in user_datastore_list]
 
-    def get_by_id(self, id: str) -> User:
-        user_datastore: UserDatastore
-
+    def get_by_id(self, id: str) -> Optional[User]:
         user_datastore = (
             self.session.query(UserDatastore)
             .filter(UserDatastore.id == uuid.UUID(id))
             .first()
         )
 
+        if not user_datastore:
+            return None
+
         return user_datastore.to_domain() if user_datastore else None
 
     def update(self, id: str, user: User) -> Optional[User]:
-        user_datastore: UserDatastore
+        user_datastore = (
+            self.session.query(UserDatastore)
+            .filter(UserDatastore.id == uuid.UUID(id))
+            .first()
+        )
+
+        if not user_datastore:
+            return None
 
         counter = (
             self.session.query(UserDatastore)
             .filter(UserDatastore.id == id)
-            .update({UserDatastore.username: user.username}, synchronize_session='fetch')
+            .update(
+                {UserDatastore.username: user.username}, synchronize_session="fetch"
+            )
         )
 
         if counter == 0:
@@ -54,8 +62,15 @@ class Repository(IRepository):
         self.session.commit()
         return user
 
-    def delete(self, id: str) -> int:
-        user_datastore: UserDatastore
+    def delete(self, id: str) -> Optional[User]:
+        user_datastore = (
+            self.session.query(UserDatastore)
+            .filter(UserDatastore.id == uuid.UUID(id))
+            .first()
+        )
+
+        if not user_datastore:
+            return None
 
         deleted_user_counter = (
             self.session.query(UserDatastore)
@@ -63,4 +78,7 @@ class Repository(IRepository):
             .delete()
         )
 
-        return deleted_user_counter
+        if deleted_user_counter == 0:
+            return None
+
+        return user_datastore.to_domain()

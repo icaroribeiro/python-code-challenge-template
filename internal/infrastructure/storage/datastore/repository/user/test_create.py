@@ -1,5 +1,3 @@
-import pytest
-
 from internal.infrastructure.storage.datastore.entity.user import User as UserDatastore
 from internal.infrastructure.storage.datastore.repository.user.test_repository_fixtures import (
     TestRepositoryFixtures,
@@ -13,10 +11,10 @@ class TestCreate(TestRepositoryFixtures):
 
         returned_user = repository.create(user)
 
-        counter = session.query(UserDatastore).count()
+        user_datastore = (
+            session.query(UserDatastore).filter(UserDatastore.id == user.id).first()
+        )
 
-        expected_counter = 0
-
-        assert counter > expected_counter
-        assert user.id == str(returned_user.id)
-        assert user.username == returned_user.username
+        new_user = user_datastore.to_domain()
+        assert new_user.id == returned_user.id
+        assert new_user.username == returned_user.username
