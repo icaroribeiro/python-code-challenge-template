@@ -28,7 +28,10 @@ def create_user(
             return jsonify(user), status.HTTP_201_CREATED
         except (Exception,) as ex:
             logger.error("%s", ex)
-            return jsonify({"error": ex}), status.HTTP_500_INTERNAL_SERVER_ERROR
+            return (
+                jsonify({"error": "Internal server error"}),
+                status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     return jsonify({"error": "Bad request"}), status.HTTP_400_BAD_REQUEST
 
@@ -46,7 +49,10 @@ def get_all_users(
         return jsonify(users), status.HTTP_200_OK
     except (Exception,) as ex:
         logger.error("%s", ex)
-        return jsonify({"error": ex}), status.HTTP_500_INTERNAL_SERVER_ERROR
+        return (
+            jsonify({"error": "Internal server error"}),
+            status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
 
 
 @blueprint.route("/users/<id>", methods=["GET"])
@@ -66,7 +72,10 @@ def get_user_by_id(
         return jsonify({"error": "Not found"}), status.HTTP_404_NOT_FOUND
     except (Exception,) as ex:
         logger.error("%s", ex)
-        return jsonify({"error": ex}), status.HTTP_500_INTERNAL_SERVER_ERROR
+        return (
+            jsonify({"error": "Internal server error"}),
+            status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
 
 
 @blueprint.route("/users/<id>", methods=["PUT"])
@@ -87,7 +96,10 @@ def update_user(
             return jsonify({"error": "Not found"}), status.HTTP_404_NOT_FOUND
         except (Exception,) as ex:
             logger.error("%s", ex)
-            return jsonify({"error": ex}), status.HTTP_500_INTERNAL_SERVER_ERROR
+            return (
+                jsonify({"error": "Internal server error"}),
+                status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
 
     return jsonify({"error": "Bad request"}), status.HTTP_400_BAD_REQUEST
 

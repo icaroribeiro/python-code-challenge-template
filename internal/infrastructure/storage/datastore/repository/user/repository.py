@@ -33,9 +33,6 @@ class Repository(IRepository):
             .first()
         )
 
-        if not user_datastore:
-            return None
-
         return user_datastore.to_domain() if user_datastore else None
 
     def update(self, id: str, user: User) -> Optional[User]:
@@ -50,7 +47,7 @@ class Repository(IRepository):
 
         counter = (
             self.session.query(UserDatastore)
-            .filter(UserDatastore.id == id)
+            .filter(UserDatastore.id == uuid.UUID(id))
             .update(
                 {UserDatastore.username: user.username}, synchronize_session="fetch"
             )
@@ -78,7 +75,4 @@ class Repository(IRepository):
             .delete()
         )
 
-        if deleted_user_counter == 0:
-            return None
-
-        return user_datastore.to_domain()
+        return user_datastore.to_domain() if deleted_user_counter else None
