@@ -27,12 +27,12 @@ internal\infrastructure\storage\datastore\entity\__init__.py                    
 internal\infrastructure\storage\datastore\entity\user.py                                   17      0   100%
 internal\infrastructure\storage\datastore\repository\__init__.py                            0      0   100%
 internal\infrastructure\storage\datastore\repository\user\__init__.py                       0      0   100%
-internal\infrastructure\storage\datastore\repository\user\repository.py                    28      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_create.py                   13      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_delete.py                   22      0   100%
+internal\infrastructure\storage\datastore\repository\user\repository.py                    34      0   100%
+internal\infrastructure\storage\datastore\repository\user\test_create.py                   11      0   100%
+internal\infrastructure\storage\datastore\repository\user\test_delete.py                   30      0   100%
 internal\infrastructure\storage\datastore\repository\user\test_get_all.py                  16      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_get_by_id.py                25      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_repository_fixtures.py      11      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_update.py                   25      0   100%
+internal\infrastructure\storage\datastore\repository\user\test_get_by_id.py                21      0   100%
+internal\infrastructure\storage\datastore\repository\user\test_repository_fixtures.py      14      0   100%
+internal\infrastructure\storage\datastore\repository\user\test_update.py                   33      0   100%
 ---------------------------------------------------------------------------------------------------------------------
-TOTAL                                                                                     356     12    97%
+TOTAL                                                                                     375     12    97%

@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -40,6 +42,11 @@ class IntegrationTest:
             session.close()
             transaction.rollback()
             connection.close()
+
+    @pytest.fixture
+    def session_mock(self):
+        with patch("sqlalchemy.orm.session.Session") as session_mock:
+            yield session_mock
 
     @staticmethod
     def _build_datastore_conn_string():

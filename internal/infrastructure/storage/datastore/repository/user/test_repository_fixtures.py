@@ -15,3 +15,7 @@ class TestRepositoryFixtures(IntegrationTest):
     @pytest.fixture
     def repository(self, session):
         return Repository(session=session)
+
+    @pytest.fixture
+    def repository_with_session_mock(self, session_mock):
+        return Repository(session=session_mock)

@@ -23,12 +23,10 @@ class TestCreate(TestServiceFixtures):
     ):
         user = UserFactory(id=uuid.uuid4(), username=fake.name())
 
-        repository.create.side_effect = Exception("Failed!")
+        repository.create.side_effect = Exception("Unexpected!")
 
         with pytest.raises(Exception) as ex:
             service.create(user=user)
-            assert ex.value == "Failed!"
+            assert ex.value == "Unexpected!"
 
         repository.create.assert_called_once_with(user)
-
-

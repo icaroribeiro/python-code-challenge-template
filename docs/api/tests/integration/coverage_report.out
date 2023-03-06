@@ -24,6 +24,6 @@ tests\factory\infrastructure\storage\__init__.py                        0      0
 tests\factory\infrastructure\storage\datastore\__init__.py              0      0   100%
 tests\factory\infrastructure\storage\datastore\entity\__init__.py       0      0   100%
 tests\factory\infrastructure\storage\datastore\entity\user.py          14     14     0%   1-21
-tests\integration_test.py                                              37     13    65%   26-28, 32-42
+tests\integration_test.py                                              42     15    64%   28-30, 34-44, 48-49
 -------------------------------------------------------------------------------------------------
-TOTAL                                                                  87     35    60%
+TOTAL                                                                  92     37    60%
