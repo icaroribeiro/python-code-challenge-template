@@ -5,7 +5,9 @@ from internal.core.domain.entity.user import User
 from internal.core.ports.infrastructure.storage.datastore.repository.user.repository_interface import (
     IRepository,
 )
-from internal.infrastructure.storage.datastore.entity.user import User as UserDatastore
+from internal.infrastructure.storage.datastore.persisted_entity.user import (
+    User as UserDatastore,
+)
 
 
 class Repository(IRepository):

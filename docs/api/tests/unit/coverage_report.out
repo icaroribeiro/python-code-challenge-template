@@ -3,36 +3,37 @@ Name                                                                            
 internal\application\__init__.py                                                            0      0   100%
 internal\application\service\__init__.py                                                    0      0   100%
 internal\application\service\healthcheck\__init__.py                                        0      0   100%
-internal\application\service\healthcheck\service.py                                        15      0   100%
-internal\application\service\healthcheck\test_get_status.py                                13      0   100%
-internal\application\service\healthcheck\test_service_fixtures.py                          10      0   100%
+internal\application\service\healthcheck\service.py                                        15      8    47%   14, 17-25
+internal\application\service\healthcheck\test_get_status.py                                13      8    38%   10-12, 17-24
+internal\application\service\healthcheck\test_service_fixtures.py                          10      2    80%   11, 15
 internal\application\service\user\__init__.py                                               0      0   100%
-internal\application\service\user\service.py                                               18      0   100%
-internal\application\service\user\test_create.py                                           18      0   100%
-internal\application\service\user\test_delete.py                                           16      0   100%
-internal\application\service\user\test_get_all.py                                          21      0   100%
-internal\application\service\user\test_get_by_id.py                                        15      0   100%
-internal\application\service\user\test_service_fixtures.py                                 15      0   100%
-internal\application\service\user\test_update.py                                           17      0   100%
+internal\application\service\user\service.py                                               18      6    67%   14, 17, 20, 23, 26, 29
+internal\application\service\user\test_create.py                                           18     14    22%   9-32
+internal\application\service\user\test_delete.py                                           16     12    25%   6-15, 18-27
+internal\application\service\user\test_get_all.py                                          21     18    14%   7-41
+internal\application\service\user\test_get_by_id.py                                        15     13    13%   5-26
+internal\application\service\user\test_service_fixtures.py                                 15      3    80%   15, 19, 23
+internal\application\service\user\test_update.py                                           17     15    12%   5-28
 internal\infrastructure\__init__.py                                                         0      0   100%
 internal\infrastructure\env\__init__.py                                                     0      0   100%
 internal\infrastructure\env\env.py                                                          7      0   100%
-internal\infrastructure\env\test_env.py                                                    10      0   100%
-internal\infrastructure\env\test_env_fixtures.py                                           10      0   100%
+internal\infrastructure\env\test_env.py                                                    10      6    40%   8-18
+internal\infrastructure\env\test_env_fixtures.py                                           10      2    80%   10, 14
 internal\infrastructure\storage\__init__.py                                                 0      0   100%
 internal\infrastructure\storage\datastore\__init__.py                                       0      0   100%
 internal\infrastructure\storage\datastore\base.py                                           2      0   100%
 internal\infrastructure\storage\datastore\datastore.py                                     12     12     0%   1-16
 internal\infrastructure\storage\datastore\entity\__init__.py                                0      0   100%
-internal\infrastructure\storage\datastore\entity\user.py                                   17      0   100%
+internal\infrastructure\storage\datastore\entity\user.py                                   17      2    88%   37, 40
+internal\infrastructure\storage\datastore\entity\user_factory.py                           14     14     0%   1-21
 internal\infrastructure\storage\datastore\repository\__init__.py                            0      0   100%
 internal\infrastructure\storage\datastore\repository\user\__init__.py                       0      0   100%
-internal\infrastructure\storage\datastore\repository\user\repository.py                    34      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_create.py                   11      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_delete.py                   30      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_get_all.py                  16      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_get_by_id.py                21      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_repository_fixtures.py      14      0   100%
-internal\infrastructure\storage\datastore\repository\user\test_update.py                   33      0   100%
+internal\infrastructure\storage\datastore\repository\user\repository.py                    34     22    35%   13, 16-20, 25-27, 30-36, 39-60, 63-78
+internal\infrastructure\storage\datastore\repository\user\test_create.py                   11      8    27%   8-20
+internal\infrastructure\storage\datastore\repository\user\test_delete.py                   30     27    10%   8-55
+internal\infrastructure\storage\datastore\repository\user\test_get_all.py                  16     13    19%   8-29
+internal\infrastructure\storage\datastore\repository\user\test_get_by_id.py                21     18    14%   8-35
+internal\infrastructure\storage\datastore\repository\user\test_repository_fixtures.py      14      3    79%   13, 17, 21
+internal\infrastructure\storage\datastore\repository\user\test_update.py                   33     30     9%   8-58
 ---------------------------------------------------------------------------------------------------------------------
-TOTAL                                                                                     375     12    97%
+TOTAL                                                                                     389    256    34%

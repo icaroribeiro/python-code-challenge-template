@@ -3,7 +3,7 @@ import uuid
 import pytest
 
 from internal.application.service.user.test_service_fixtures import TestServiceFixtures
-from tests.factory.core.domain.entity.user import UserFactory
+from internal.core.domain.entity.user_factory import UserFactory
 
 
 class TestCreate(TestServiceFixtures):

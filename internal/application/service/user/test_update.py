@@ -1,9 +1,11 @@
 from internal.application.service.user.test_service_fixtures import TestServiceFixtures
-from tests.factory.core.domain.entity.user import UserFactory
+from internal.core.domain.entity.user_factory import UserFactory
 
 
 class TestUpdate(TestServiceFixtures):
-    def test_update_should_succeed_in_updating_the_user(self, service, repository, fake):
+    def test_update_should_succeed_in_updating_the_user(
+        self, service, repository, fake
+    ):
         id = fake.uuid4()
         updated_user = UserFactory(id=id)
 
@@ -15,7 +17,9 @@ class TestUpdate(TestServiceFixtures):
 
         repository.update.assert_called_once_with(id=id, user=updated_user)
 
-    def test_update_should_not_succeed_in_updating_the_user_if_user_id_is_not_found(self, service, repository, fake):
+    def test_update_should_not_succeed_in_updating_the_user_if_user_id_is_not_found(
+        self, service, repository, fake
+    ):
         id = fake.uuid4()
         updated_user = UserFactory(id=id)
 

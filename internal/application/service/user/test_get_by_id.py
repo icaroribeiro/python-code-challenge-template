@@ -1,9 +1,11 @@
 from internal.application.service.user.test_service_fixtures import TestServiceFixtures
-from tests.factory.core.domain.entity.user import UserFactory
+from internal.core.domain.entity.user_factory import UserFactory
 
 
 class TestGetById(TestServiceFixtures):
-    def test_get_by_id_should_succeed_in_getting_a_user_by_its_id(self, service, repository, fake):
+    def test_get_by_id_should_succeed_in_getting_a_user_by_its_id(
+        self, service, repository, fake
+    ):
         user = UserFactory()
 
         repository.get_by_id.return_value = user
@@ -14,7 +16,9 @@ class TestGetById(TestServiceFixtures):
 
         repository.get_by_id.assert_called_once_with(id=user.id)
 
-    def test_get_by_id_should_return_none_if_there_is_no_user(self, service, repository, fake):
+    def test_get_by_id_should_return_none_if_there_is_no_user(
+        self, service, repository, fake
+    ):
         id = fake.uuid4()
 
         repository.get_by_id.return_value = None

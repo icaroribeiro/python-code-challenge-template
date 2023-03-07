@@ -1,8 +1,10 @@
-from internal.infrastructure.storage.datastore.entity.user import User as UserDatastore
+from internal.core.domain.entity.user_factory import UserFactory
+from internal.infrastructure.storage.datastore.persisted_entity.user import (
+    User as UserDatastore,
+)
 from internal.infrastructure.storage.datastore.repository.user.test_repository_fixtures import (
     TestRepositoryFixtures,
 )
-from tests.factory.core.domain.entity.user import UserFactory
 
 
 class TestCreate(TestRepositoryFixtures):
