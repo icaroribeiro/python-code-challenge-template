@@ -25,9 +25,9 @@ run-api:
 #
 test-api:
 	. ./scripts/setup_env_vars.test.sh; \
-	poetry run coverage run --source=internal/application,internal/infrastructure -m pytest internal; \
+	poetry run coverage run --source=internal/application,internal/infrastructure -m pytest -v internal; \
 	poetry run coverage report -m > ./docs/api/tests/unit/coverage_report.out; \
-	poetry run coverage run --source=tests/ -m pytest tests; \
+	poetry run coverage run --source=tests/ -m pytest -v tests; \
 	poetry run coverage report -m > ./docs/api/tests/integration/coverage_report.out
 
 
@@ -42,12 +42,12 @@ start-deps:
 	docker network connect testapp_network postgrestestdb_container
 
 init-app:
-	docker build -t apitest -f ./tests/Dockerfile.test .; \
-	docker run --name apitest_container --env-file ./tests/.env.test -d -p 5001:5001 --restart on-failure apitest; \
+	docker build -t apitest -f Dockerfile.test .; \
+	docker run --name apitest_container --env-file .env.test -d -p 5001:5001 --restart on-failure apitest; \
 	docker network connect testapp_network apitest_container
 
 test-app:
-	docker exec --env-file ./tests/.env.test apitest_container poetry run pytest;
+	docker exec --env-file .env.test apitest_container poetry run pytest -v;
 
 destroy-app:
 	docker network disconnect testapp_network apitest_container; \

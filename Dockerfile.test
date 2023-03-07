@@ -31,4 +31,4 @@ RUN apt-get update \
 RUN poetry install --only main --no-root --no-ansi
 
 # Command to run the application.
-CMD [ "sh", "-c", "poetry run python cmd/api/main.py" ]
+CMD [ "sh", "-c", "poetry run python comd/api/main.py" ]

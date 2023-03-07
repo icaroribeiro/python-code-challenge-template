@@ -49,4 +49,4 @@ RUN apt-get update \
 RUN . .venv/bin/activate
 
 # Command to run the application.
-CMD [ "sh", "-c", "python cmd/api/main.py" ]
+CMD [ "sh", "-c", "python comd/api/main.py" ]
