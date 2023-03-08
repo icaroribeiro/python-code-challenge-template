@@ -1,9 +1,12 @@
 from flask import Flask
+from flask_restx import Api
 
 from internal.di.di import AppContainer, Core
 from internal.infrastructure.env.env import Env
+from internal.presentation.api.handler import blueprint as documented_endpoint
 from internal.presentation.api.handler.healthcheck import handler as healthcheck_handler
-from internal.presentation.api.handler.user import handler as user_handler
+
+# from internal.presentation.api.handler.user import handler as user_handler
 
 env = Env()
 
@@ -16,15 +19,20 @@ host = env.get_env_with_default_value(key="DB_HOST", default_value="localhost")
 port = env.get_env_with_default_value(key="DB_PORT", default_value="5432")
 name = env.get_env_with_default_value(key="DB_NAME", default_value="db")
 
+app = Flask(__name__)
+
 
 def create_app():
     _setup_config()
     app_container = AppContainer()
     app_container.wire(modules=[healthcheck_handler])
-    app_container.wire(modules=[user_handler])
-    app = Flask(__name__)
+    # app_container.wire(modules=[user_handler])
+
+    # api_extension.add_namespace(health_check_namespace)
+
+    app.register_blueprint(documented_endpoint)
     app.register_blueprint(healthcheck_handler.blueprint)
-    app.register_blueprint(user_handler.blueprint)
+    # app.register_blueprint(user_handler.blueprint)
     return app
 
 
