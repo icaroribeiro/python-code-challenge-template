@@ -24,7 +24,7 @@
 #         domain_user = DomainUser(username=username)
 #         try:
 #             returned_domain_user = service.create(domain_user)
-#             user = User.from_domain(domain=returned_domain_user)
+#   1          user = User.from_domain(domain=returned_domain_user)
 #             return jsonify(user), status.HTTP_201_CREATED
 #         except (Exception,) as ex:
 #             logger.error("%s", ex)
