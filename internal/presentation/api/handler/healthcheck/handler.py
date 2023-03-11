@@ -1,17 +1,22 @@
-from dependency_injector.wiring import Closing, Provide, inject
-from flask import Blueprint, jsonify
+from dependency_injector.wiring import Provide, inject
 from flask_api import status
-from flask_restx import Namespace, Resource, fields, reqparse
+from flask_restx import Resource
 
 from internal.application.service.healthcheck.service import (
     Service as HealthCheckService,
 )
 from internal.di.di import AppContainer
-from internal.presentation.api.handler.healthcheck import ns_test
+from internal.presentation.api.entity.error import Error
+from internal.presentation.api.entity.message import Message
+from internal.presentation.api.handler.healthcheck import (
+    error_model,
+    health_check_namespace,
+    message_model,
+)
 
 
-@ns_test.route("/")
-class Hello(Resource):
+@health_check_namespace.route("/status")
+class HealthCheck(Resource):
     @inject
     def __init__(
         self,
@@ -23,17 +28,28 @@ class Hello(Resource):
         self.service = service
         super().__init__(api, *args, **kwargs)
 
-    @ns_test.doc("say_hello")
+    @health_check_namespace.doc("get_status")
+    # @health_check_namespace.doc("api", security="ApiKeyAuth")
+    @health_check_namespace.response(
+        code=status.HTTP_200_OK, model=message_model, description="OK"
+    )
+    @health_check_namespace.response(
+        code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        model=error_model,
+        description="Internal Server Error",
+    )
     def get(self):
         if not self.service.get_status():
+            text = "the app is not ready to work as expected"
             return (
-                {"error": "the app is not ready to work as expected"},
+                Error(text=text).to_json(),
                 status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-        return {"message": "everything is up and running"}, status.HTTP_200_OK
+        text = "everything is up and running"
+        return Message(text=text).to_json(), status.HTTP_200_OK
 
-    # @ns_test.doc("say_hello")
+    # @health_check_namespace.doc("say_hello")
     # @inject
     # def get(
     #     self,

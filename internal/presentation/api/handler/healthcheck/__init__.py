@@ -1,20 +1,22 @@
 from flask_restx import Namespace, fields, reqparse
 
-# Namespace
-ns_test = Namespace("test", description="a test namespace")
+# authorizations = {
+#     "ApiKeyAuth": {"type": "apiKey", "in": "header", "name": "Authorization"}
+# }
 
-# Models
-custom_greeting_model = ns_test.model(
-    "Custom",
-    {
-        "greeting": fields.String(required=True),
-        "id": fields.Integer(required=True),
-    },
+health_check_namespace = Namespace(
+    "health check",
+    description="It refers to the operation related to health check.",
+    path="/api",
+    # authorizations=authorizations,
 )
 
-# Parser
-custom_greeting_parser = reqparse.RequestParser()
-custom_greeting_parser.add_argument("greeting", required=True, location="json")
+message_model = health_check_namespace.model(
+    "Message",
+    {"message": fields.String()},
+)
 
-
-custom_greetings = list()
+error_model = health_check_namespace.model(
+    "Error",
+    {"error": fields.String()},
+)

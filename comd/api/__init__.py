@@ -1,6 +1,4 @@
 from flask import Flask
-from flask_injector import FlaskInjector
-from flask_restx import Api
 
 from internal.di.di import AppContainer, Core
 from internal.infrastructure.env.env import Env
@@ -29,13 +27,8 @@ def create_app():
     app_container.wire(modules=[healthcheck_handler])
     # app_container.wire(modules=[user_handler])
 
-    # api_extension.add_namespace(health_check_namespace)
-    #
-    # FlaskInjector(app=app, modules=[AppContainer.dependencies])
-
+    app.config["RESTX_MASK_SWAGGER"] = False
     app.register_blueprint(documented_endpoint)
-    # app.register_blueprint(healthcheck_handler.blueprint)
-    # app.register_blueprint(user_handler.blueprint)
     return app
 
 
