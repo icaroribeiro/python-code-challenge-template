@@ -4,8 +4,7 @@ from internal.di.di import AppContainer, Core
 from internal.infrastructure.env.env import Env
 from internal.presentation.api.handler import blueprint as documented_endpoint
 from internal.presentation.api.handler.healthcheck import handler as healthcheck_handler
-
-# from internal.presentation.api.handler.user import handler as user_handler
+from internal.presentation.api.handler.user import handler as user_handler
 
 env = Env()
 
@@ -25,7 +24,7 @@ def create_app():
     _setup_config()
     app_container = AppContainer()
     app_container.wire(modules=[healthcheck_handler])
-    # app_container.wire(modules=[user_handler])
+    app_container.wire(modules=[user_handler])
 
     app.config["RESTX_MASK_SWAGGER"] = False
     app.register_blueprint(documented_endpoint)

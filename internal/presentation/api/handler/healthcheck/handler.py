@@ -16,7 +16,7 @@ from internal.presentation.api.handler.healthcheck import (
 
 
 @health_check_namespace.route("/status")
-class HealthCheck(Resource):
+class HealthCheckResource(Resource):
     @inject
     def __init__(
         self,

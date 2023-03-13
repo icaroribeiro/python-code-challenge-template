@@ -1,4 +1,4 @@
-from flask_restx import Namespace, fields, reqparse
+from flask_restx import Model, Namespace, fields
 
 # authorizations = {
 #     "ApiKeyAuth": {"type": "apiKey", "in": "header", "name": "Authorization"}
@@ -12,11 +12,11 @@ health_check_namespace = Namespace(
 )
 
 message_model = health_check_namespace.model(
-    "Message",
+    "MessageModel",
     {"message": fields.String()},
 )
 
 error_model = health_check_namespace.model(
-    "Error",
+    "ErrorModel",
     {"error": fields.String()},
 )

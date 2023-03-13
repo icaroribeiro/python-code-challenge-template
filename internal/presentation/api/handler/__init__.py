@@ -2,6 +2,7 @@ from flask import Blueprint
 from flask_restx import Api
 
 from internal.presentation.api.handler.healthcheck import health_check_namespace
+from internal.presentation.api.handler.user import user_namespace
 
 blueprint = Blueprint("api", __name__, url_prefix="")
 
@@ -14,3 +15,4 @@ api_extension = Api(
 )
 
 api_extension.add_namespace(health_check_namespace)
+api_extension.add_namespace(user_namespace)
