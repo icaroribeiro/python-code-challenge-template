@@ -7,32 +7,36 @@ user_namespace = Namespace(
     # authorizations=authorizations,
 )
 
-user_model = user_namespace.model(
-    "UserModel",
-    {
-        "id": fields.String(),
-        "username": fields.String(),
-    },
-)
-
-user_list_model = user_namespace.model(
-    "UserListModel",
-    {
-        "abc": fields.List(
-            {
-                "id": fields.String(),
-                "username": fields.String(),
-            }
-        )
-    },
-)
-
-message_model = user_namespace.model(
-    "MessageModel",
-    {"message": fields.String()},
-)
-
 error_model = user_namespace.model(
     "ErrorModel",
     {"error": fields.String()},
 )
+
+creatable_user_model = user_namespace.model(
+    "CreatableUserModel",
+    {
+        "username": fields.String(),
+    },
+)
+
+updatable_user_model = user_namespace.model(
+    "UpdatableUserModel",
+    {
+        "username": fields.String(),
+    },
+)
+
+# mylist_model = user_namespace.model("Mylist", {"a": fields.String()})
+
+user_fields = {
+    "id": fields.String(),
+    "username": fields.String(),
+    # "mylist": fields.List(fields.Nested(mylist_model)),
+}
+
+user_model = user_namespace.model(
+    "UserModel",
+    user_fields,
+)
+
+user_collection_model = [user_model]

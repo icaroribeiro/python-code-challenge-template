@@ -1,4 +1,4 @@
-from internal.core.domain.entity.user_factory import UserFactory
+from internal.core.domain.entity.user_factory import UserFactory as DomainUserFactory
 from internal.infrastructure.storage.datastore.persisted_entity.user import (
     User as UserDatastore,
 )
@@ -9,14 +9,15 @@ from internal.infrastructure.storage.datastore.repository.user.test_repository_f
 
 class TestCreate(TestRepositoryFixtures):
     def test_create_should_succeed_in_creating_a_user(self, session, repository, fake):
-        user = UserFactory()
+        domain_user = DomainUserFactory()
 
-        returned_user = repository.create(user)
+        returned_user = repository.create(user=domain_user)
 
-        user_datastore = (
-            session.query(UserDatastore).filter(UserDatastore.id == user.id).first()
+        persisted_user = (
+            session.query(UserDatastore)
+            .filter(UserDatastore.id == domain_user.id)
+            .first()
         )
 
-        new_user = user_datastore.to_domain()
-        assert new_user.id == returned_user.id
-        assert new_user.username == returned_user.username
+        assert persisted_user.id == returned_user.id
+        assert persisted_user.username == returned_user.username

@@ -5,5 +5,9 @@ from tests.api.api_test import APITest
 
 class TestIntegrationFixtures(APITest):
     @pytest.fixture
-    def url_path(self):
-        return "/status"
+    def path_prefix(self):
+        return "/api"
+
+    @pytest.fixture
+    def url_path(self, path_prefix):
+        return f"{path_prefix}/status"

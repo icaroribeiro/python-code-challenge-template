@@ -77,4 +77,5 @@ class Repository(IRepository):
             .delete()
         )
 
+        self.session.commit()
         return user_datastore.to_domain() if deleted_user_counter else None

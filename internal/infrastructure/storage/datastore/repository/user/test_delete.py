@@ -1,6 +1,11 @@
-from internal.core.domain.entity.user_factory import UserFactory
+import uuid
+
+from internal.core.domain.entity.user_factory import UserFactory as DomainUserFactory
 from internal.infrastructure.storage.datastore.persisted_entity.user import (
     User as UserDatastore,
+)
+from internal.infrastructure.storage.datastore.persisted_entity.user_factory import (
+    UserFactory,
 )
 from internal.infrastructure.storage.datastore.repository.user.test_repository_fixtures import (
     TestRepositoryFixtures,
@@ -11,26 +16,27 @@ class TestDelete(TestRepositoryFixtures):
     def test_delete_should_succeed_in_deleting_the_user(
         self, session, repository, fake
     ):
-        user = UserFactory()
-        user_datastore = UserDatastore.from_domain(domain=user)
-        session.add(user_datastore)
-        session.commit()
+        persisted_user = UserFactory()
+        session.add(persisted_user)
+        session.flush()
 
-        id = user.id
-        expected_deleted_user = user_datastore.to_domain()
+        id = persisted_user.id
+        username = persisted_user.username
 
         returned_deleted_user = repository.delete(id=id)
 
-        assert expected_deleted_user.id == returned_deleted_user.id
-        assert expected_deleted_user.username == returned_deleted_user.username
+        count = session.query(UserDatastore).filter(UserDatastore.id == id).count()
+
+        assert count == 0
+        assert id == str(returned_deleted_user.id)
+        assert username == returned_deleted_user.username
 
     def test_delete_should_not_succeed_in_deleting_the_user_if_user_id_is_not_found(
         self, session, repository, fake
     ):
-        user = UserFactory()
-        user_datastore = UserDatastore.from_domain(domain=user)
-        session.add(user_datastore)
-        session.commit()
+        persisted = UserFactory()
+        session.add(persisted)
+        session.flush()
 
         id = fake.uuid4()
 
@@ -41,8 +47,8 @@ class TestDelete(TestRepositoryFixtures):
     def test_delete_should_fail_in_deleting_a_user_if_an_error_occurs_when_deleting_a_user(
         self, session_mock, repository_with_session_mock, fake
     ):
-        user = UserFactory()
-        user_datastore = UserDatastore.from_domain(domain=user)
+        domain_user = DomainUserFactory()
+        user_datastore = UserDatastore.from_domain(domain=domain_user)
 
         id = fake.uuid4()
 
