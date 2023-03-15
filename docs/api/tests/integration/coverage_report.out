@@ -2,18 +2,18 @@ Name                                                         Stmts   Miss  Cover
 ------------------------------------------------------------------------------------------
 tests\__init__.py                                                0      0   100%
 tests\api\__init__.py                                            0      0   100%
-tests\api\api_test.py                                           10      0   100%
+tests\api\api_test.py                                           11      0   100%
 tests\api\handler\__init__.py                                    0      0   100%
 tests\api\handler\healthcheck\__init__.py                        0      0   100%
-tests\api\handler\healthcheck\test_get_status.py                 9      0   100%
+tests\api\handler\healthcheck\test_get_status.py                13      0   100%
 tests\api\handler\healthcheck\test_integration_fixtures.py       9      0   100%
 tests\api\handler\user\__init__.py                               0      0   100%
-tests\api\handler\user\test_create.py                            3      0   100%
+tests\api\handler\user\test_create.py                            9      0   100%
 tests\api\handler\user\test_delete.py                            0      0   100%
 tests\api\handler\user\test_get_all.py                           0      0   100%
 tests\api\handler\user\test_get_by_id.py                         0      0   100%
-tests\api\handler\user\test_integration_fixtures.py              0      0   100%
+tests\api\handler\user\test_integration_fixtures.py             13      1    92%   19
 tests\api\handler\user\test_update.py                            0      0   100%
-tests\integration_test.py                                       42     15    64%   28-30, 34-44, 48-49
+tests\integration_test.py                                       42      4    90%   39-40, 48-49
 ------------------------------------------------------------------------------------------
-TOTAL                                                           73     15    79%
+TOTAL                                                           97      5    95%

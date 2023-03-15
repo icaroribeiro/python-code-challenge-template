@@ -13,9 +13,7 @@ from internal.infrastructure.storage.datastore.repository.user.test_repository_f
 
 
 class TestDelete(TestRepositoryFixtures):
-    def test_delete_should_succeed_in_deleting_the_user(
-        self, session, repository, fake
-    ):
+    def test_delete_should_succeed_in_deleting_a_user(self, session, repository, fake):
         persisted_user = UserFactory()
         session.add(persisted_user)
         session.flush()
