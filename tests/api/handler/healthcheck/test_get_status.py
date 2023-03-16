@@ -11,11 +11,12 @@ class TestGetStatus(TestIntegrationFixtures):
         self, test_client, status_url_path
     ):
         expected_status_code = status.HTTP_200_OK
-
         text = "everything is up and running"
         expected_json_response = Message(text=text).to_json()
 
-        test_response = test_client.get(status_url_path)
+        path = status_url_path
+        response = test_client.get(path=path)
+        json_response_data = response.get_json()
 
-        assert expected_status_code == test_response.status_code
-        assert expected_json_response == test_response.json
+        assert expected_status_code == response.status_code
+        assert expected_json_response == json_response_data

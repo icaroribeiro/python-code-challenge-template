@@ -19,8 +19,6 @@ class Repository(IRepository):
         self.session.add(user_datastore)
         self.session.commit()
 
-        b = self.session.query(UserDatastore).count()
-
         return user_datastore.to_domain()
 
     def get_all(self) -> List[User]:

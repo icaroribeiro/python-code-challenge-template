@@ -238,7 +238,7 @@ class UsersResource(Resource):
         data = request.json
         if data:
             username = data.get("username")
-            domain_user = DomainUser(username=username)
+            domain_user = DomainUser(id=user_id, username=username)
             try:
                 updated_domain_user = self.service.update(id=user_id, user=domain_user)
                 if not updated_domain_user:
