@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "093c7e41-9869-41db-82f7-a96250a18b9a",
+		"name": "python-code-challenge-template",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetStatus",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/status",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX2lkIjoiZjYxNzhhMGMtZTc3Ni00YmU1LWJlZjAtYTZlZmY5ZDM1MWEyIiwiYXV0aG9yaXplZCI6dHJ1ZSwiZXhwIjoxNjUyOTAzMjA4LCJpYXQiOjE2NTI5MDMwODgsInVzZXJfaWQiOiI4ZTEyMzhkZS03N2ExLTRkYWYtYWUyNi1kNDgwMTIzY2IwZmYifQ.lvB-4XxtwdlzHGKpp4hy9y0S_3kKgDMUk7ZEsIx_INTlJ9CHszgbx4tUwAl7POG1P7xStWmGRcT4qS0hw3Bz4KJ-4PTOEa6BOrZULqI_KzVvjhKInYO5CEbxL0rHsPSjTdV2VtJo_YSajIEK5AjCwX3HRi1kZ_uiRyQWKd039wA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"icaroribeiro\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/user",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX2lkIjoiNDdjYTFhMzAtN2M5Ny00NTY4LThhMGItZDY4MDhmMGMzNWZjIiwiYXV0aG9yaXplZCI6dHJ1ZSwiZXhwIjoxNjUyNzI1MzUxLCJpYXQiOjE2NTI3MjUyOTEsInVzZXJfaWQiOiJjZmE1ZDNjNS00M2IxLTQ1NmMtOTg5MC1kOTUyN2MzNTVjNTAifQ.bL0qSDUq4rA1qiQrcPYvr0kSwSIR8Su3wTlQAQ-2eANfCR90IgEmF00quFI4kx-gjZS7g_452nFCRRvLggH50pHL-wjPAeWmN7HDQ3Fw1vbJVyCxRP6k8as_JBMJUvvXdAg3Hoagba0D_WMmiLBzpiXSF0GZ9xJL2Iza5GHR_AI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/users/3626d50a-7607-4bc3-8377-29b61cbdb539",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"3626d50a-7607-4bc3-8377-29b61cbdb539"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX2lkIjoiNDdjYTFhMzAtN2M5Ny00NTY4LThhMGItZDY4MDhmMGMzNWZjIiwiYXV0aG9yaXplZCI6dHJ1ZSwiZXhwIjoxNjUyNzI1MzUxLCJpYXQiOjE2NTI3MjUyOTEsInVzZXJfaWQiOiJjZmE1ZDNjNS00M2IxLTQ1NmMtOTg5MC1kOTUyN2MzNTVjNTAifQ.bL0qSDUq4rA1qiQrcPYvr0kSwSIR8Su3wTlQAQ-2eANfCR90IgEmF00quFI4kx-gjZS7g_452nFCRRvLggH50pHL-wjPAeWmN7HDQ3Fw1vbJVyCxRP6k8as_JBMJUvvXdAg3Hoagba0D_WMmiLBzpiXSF0GZ9xJL2Iza5GHR_AI"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/users",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX2lkIjoiNDdjYTFhMzAtN2M5Ny00NTY4LThhMGItZDY4MDhmMGMzNWZjIiwiYXV0aG9yaXplZCI6dHJ1ZSwiZXhwIjoxNjUyNzI1MzUxLCJpYXQiOjE2NTI3MjUyOTEsInVzZXJfaWQiOiJjZmE1ZDNjNS00M2IxLTQ1NmMtOTg5MC1kOTUyN2MzNTVjNTAifQ.bL0qSDUq4rA1qiQrcPYvr0kSwSIR8Su3wTlQAQ-2eANfCR90IgEmF00quFI4kx-gjZS7g_452nFCRRvLggH50pHL-wjPAeWmN7HDQ3Fw1vbJVyCxRP6k8as_JBMJUvvXdAg3Hoagba0D_WMmiLBzpiXSF0GZ9xJL2Iza5GHR_AI"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"icaroribeiro2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/users/3626d50a-7607-4bc3-8377-29b61cbdb539",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"3626d50a-7607-4bc3-8377-29b61cbdb539"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoX2lkIjoiNDdjYTFhMzAtN2M5Ny00NTY4LThhMGItZDY4MDhmMGMzNWZjIiwiYXV0aG9yaXplZCI6dHJ1ZSwiZXhwIjoxNjUyNzI1MzUxLCJpYXQiOjE2NTI3MjUyOTEsInVzZXJfaWQiOiJjZmE1ZDNjNS00M2IxLTQ1NmMtOTg5MC1kOTUyN2MzNTVjNTAifQ.bL0qSDUq4rA1qiQrcPYvr0kSwSIR8Su3wTlQAQ-2eANfCR90IgEmF00quFI4kx-gjZS7g_452nFCRRvLggH50pHL-wjPAeWmN7HDQ3Fw1vbJVyCxRP6k8as_JBMJUvvXdAg3Hoagba0D_WMmiLBzpiXSF0GZ9xJL2Iza5GHR_AI"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/users/3626d50a-7607-4bc3-8377-29b61cbdb539",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"3626d50a-7607-4bc3-8377-29b61cbdb539"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
