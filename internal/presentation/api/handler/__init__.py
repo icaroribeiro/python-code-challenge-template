@@ -10,7 +10,7 @@ api_extension = Api(
     blueprint,
     title="X Tech Challenge",
     version="1.0",
-    description="A REST API developed using Python programming language and Postgres database.",
+    description="A REST API developed using Python programming language, Postgres database and Docker container.",
     doc="/apidoc",
 )
 

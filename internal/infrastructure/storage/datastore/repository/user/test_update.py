@@ -1,8 +1,8 @@
 from internal.core.domain.entity.user_factory import UserFactory as DomainUserFactory
-from internal.infrastructure.storage.datastore.persisted_entity.user import (
+from internal.infrastructure.storage.datastore.persistent_entity.user import (
     User as UserDatastore,
 )
-from internal.infrastructure.storage.datastore.persisted_entity.user_factory import (
+from internal.infrastructure.storage.datastore.persistent_entity.user_factory import (
     UserFactory,
 )
 from internal.infrastructure.storage.datastore.repository.user.test_repository_fixtures import (
@@ -12,11 +12,11 @@ from internal.infrastructure.storage.datastore.repository.user.test_repository_f
 
 class TestUpdate(TestRepositoryFixtures):
     def test_update_should_succeed_in_updating_a_user(self, session, repository, fake):
-        persisted_user = UserFactory()
-        session.add(persisted_user)
+        persistent_user = UserFactory()
+        session.add(persistent_user)
         session.commit()
 
-        id = persisted_user.id
+        id = persistent_user.id
         updated_domain_user = DomainUserFactory(id=id)
 
         returned_updated_user = repository.update(id=str(id), user=updated_domain_user)
@@ -27,8 +27,8 @@ class TestUpdate(TestRepositoryFixtures):
     def test_update_should_fail_in_updating_a_user_if_id_is_not_found(
         self, session, repository, fake
     ):
-        persisted_user = UserFactory()
-        session.add(persisted_user)
+        persistent_user = UserFactory()
+        session.add(persistent_user)
         session.commit()
 
         id = fake.uuid4()

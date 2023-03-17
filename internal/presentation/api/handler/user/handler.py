@@ -3,15 +3,15 @@ import logging
 from dependency_injector.wiring import Provide, inject
 from flask import request
 from flask_api import status
-from flask_restx import Resource, reqparse
-from psycopg2.errors import UniqueViolation
+from flask_restx import Resource
+
+# from flask_restx import reqparse
+from psycopg2.errors import NotNullViolation, UniqueViolation
 from sqlalchemy.exc import IntegrityError
 
 from internal.application.service.user.service import Service as UserService
 from internal.core.domain.entity.user import User as DomainUser
 from internal.di.di import AppContainer
-from internal.presentation.api.entity.error import Error
-from internal.presentation.api.entity.user import User
 from internal.presentation.api.handler.user import (
     creatable_user_model,
     error_model,
@@ -20,12 +20,14 @@ from internal.presentation.api.handler.user import (
     user_model,
     user_namespace,
 )
+from internal.presentation.api.presentable_entity.error import Error
+from internal.presentation.api.presentable_entity.user import User
 
 logger = logging.getLogger(__name__)
 
-parser = reqparse.RequestParser()
-parser.add_argument("var1", type=str, help="variable 1")
-parser.add_argument("var2", type=str, help="variable 2")
+# parser = reqparse.RequestParser()
+# parser.add_argument("var1", type=str, help="variable 1")
+# parser.add_argument("var2", type=str, help="variable 2")
 
 
 @user_namespace.route("/user")
@@ -84,6 +86,14 @@ class UserResource(Resource):
                     status.HTTP_201_CREATED,
                 )
             except IntegrityError as ex:
+                if isinstance(ex.orig, NotNullViolation):
+                    logger.error("%s", ex)
+                    text = "Bad Request"
+                    return (
+                        Error(text=text).to_json(),
+                        status.HTTP_400_BAD_REQUEST,
+                    )
+
                 if isinstance(ex.orig, UniqueViolation):
                     logger.error("%s", ex)
                     text = "Conflict"
@@ -119,21 +129,6 @@ class UserCollectionResource(Resource):
     @user_namespace.doc("get_all_users")
     @user_namespace.response(
         code=status.HTTP_200_OK, model=user_collection_model, description="OK"
-    )
-    @user_namespace.response(
-        code=status.HTTP_400_BAD_REQUEST,
-        model=error_model,
-        description="Bad Request",
-    )
-    @user_namespace.response(
-        code=status.HTTP_401_UNAUTHORIZED,
-        model=error_model,
-        description="Unauthorized",
-    )
-    @user_namespace.response(
-        code=status.HTTP_404_NOT_FOUND,
-        model=error_model,
-        description="Not Found",
     )
     @user_namespace.response(
         code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -251,6 +246,21 @@ class UsersResource(Resource):
                 return (
                     User.from_domain(domain=updated_domain_user).to_json(),
                     status.HTTP_200_OK,
+                )
+            except IntegrityError as ex:
+                if isinstance(ex.orig, NotNullViolation):
+                    logger.error("%s", ex)
+                    text = "Bad Request"
+                    return (
+                        Error(text=text).to_json(),
+                        status.HTTP_400_BAD_REQUEST,
+                    )
+            except ValueError as ex:
+                logger.error("%s", ex)
+                text = "Bad Request"
+                return (
+                    Error(text=text).to_json(),
+                    status.HTTP_400_BAD_REQUEST,
                 )
             except (Exception,) as ex:
                 logger.error("%s", ex)

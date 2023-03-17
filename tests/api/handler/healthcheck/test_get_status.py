@@ -1,6 +1,6 @@
 from flask_api import status
 
-from internal.presentation.api.entity.message import Message
+from internal.presentation.api.presentable_entity.message import Message
 from tests.api.handler.healthcheck.test_integration_fixtures import (
     TestIntegrationFixtures,
 )

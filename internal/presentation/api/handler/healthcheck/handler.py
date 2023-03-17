@@ -1,3 +1,5 @@
+import logging
+
 from dependency_injector.wiring import Provide, inject
 from flask_api import status
 from flask_restx import Resource
@@ -6,13 +8,15 @@ from internal.application.service.healthcheck.service import (
     Service as HealthCheckService,
 )
 from internal.di.di import AppContainer
-from internal.presentation.api.entity.error import Error
-from internal.presentation.api.entity.message import Message
 from internal.presentation.api.handler.healthcheck import (
     error_model,
     health_check_namespace,
     message_model,
 )
+from internal.presentation.api.presentable_entity.error import Error
+from internal.presentation.api.presentable_entity.message import Message
+
+logger = logging.getLogger(__name__)
 
 
 @health_check_namespace.route("/status")
@@ -39,8 +43,17 @@ class HealthCheckResource(Resource):
         description="Internal Server Error",
     )
     def get(self):
-        if not self.service.get_status():
-            text = "the app is not ready to work as expected"
+        try:
+            if not self.service.get_status():
+                logger.error("the app is not ready to work as expected")
+                text = "the app is not ready to work as expected"
+                return (
+                    Error(text=text).to_json(),
+                    status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+        except (Exception,) as ex:
+            logger.error("%s", ex)
+            text = "Internal Server Error"
             return (
                 Error(text=text).to_json(),
                 status.HTTP_500_INTERNAL_SERVER_ERROR,

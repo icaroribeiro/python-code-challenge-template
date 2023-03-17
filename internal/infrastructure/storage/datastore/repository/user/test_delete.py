@@ -1,10 +1,10 @@
 import uuid
 
 from internal.core.domain.entity.user_factory import UserFactory as DomainUserFactory
-from internal.infrastructure.storage.datastore.persisted_entity.user import (
+from internal.infrastructure.storage.datastore.persistent_entity.user import (
     User as UserDatastore,
 )
-from internal.infrastructure.storage.datastore.persisted_entity.user_factory import (
+from internal.infrastructure.storage.datastore.persistent_entity.user_factory import (
     UserFactory,
 )
 from internal.infrastructure.storage.datastore.repository.user.test_repository_fixtures import (
@@ -14,12 +14,12 @@ from internal.infrastructure.storage.datastore.repository.user.test_repository_f
 
 class TestDelete(TestRepositoryFixtures):
     def test_delete_should_succeed_in_deleting_a_user(self, session, repository, fake):
-        persisted_user = UserFactory()
-        session.add(persisted_user)
+        persistent_user = UserFactory()
+        session.add(persistent_user)
         session.flush()
 
-        id = persisted_user.id
-        username = persisted_user.username
+        id = persistent_user.id
+        username = persistent_user.username
 
         returned_deleted_user = repository.delete(id=id)
 
@@ -32,8 +32,8 @@ class TestDelete(TestRepositoryFixtures):
     def test_delete_should_not_succeed_in_deleting_the_user_if_user_id_is_not_found(
         self, session, repository, fake
     ):
-        persisted = UserFactory()
-        session.add(persisted)
+        user = UserFactory()
+        session.add(user)
         session.flush()
 
         id = fake.uuid4()
