@@ -1,9 +1,7 @@
 import uuid
 
-from internal.infrastructure.storage.datastore.persistent_entity.user_factory import (
-    UserFactory,
-)
-from internal.infrastructure.storage.datastore.repository.user.test_repository_fixtures import (
+from internal.infrastructure.datastore.persistent_entity.user_factory import UserFactory
+from internal.infrastructure.datastore.repository.user.test_repository_fixtures import (
     TestRepositoryFixtures,
 )
 

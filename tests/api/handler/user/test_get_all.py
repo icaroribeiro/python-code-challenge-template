@@ -2,13 +2,12 @@ from typing import List
 
 from flask_api import status
 
-from internal.infrastructure.storage.datastore.persistent_entity.user import (
-    User as UserDatastore,
-)
-from internal.infrastructure.storage.datastore.persistent_entity.user_factory import (
-    UserFactory,
-)
-from tests.api.handler.user.test_integration_fixtures import TestIntegrationFixtures
+from internal.infrastructure.datastore.persistent_entity.user import \
+    User as UserDatastore
+from internal.infrastructure.datastore.persistent_entity.user_factory import \
+    UserFactory
+from tests.api.handler.user.test_integration_fixtures import \
+    TestIntegrationFixtures
 
 
 class TestGetAll(TestIntegrationFixtures):

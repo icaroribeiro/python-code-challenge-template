@@ -1,11 +1,9 @@
 from flask_api import status
 
-from internal.infrastructure.storage.datastore.persistent_entity.user import (
+from internal.infrastructure.datastore.persistent_entity.user import (
     User as UserDatastore,
 )
-from internal.infrastructure.storage.datastore.persistent_entity.user_factory import (
-    UserFactory,
-)
+from internal.infrastructure.datastore.persistent_entity.user_factory import UserFactory
 from internal.presentation.api.presentable_entity.error import Error
 from tests.api.handler.user.test_integration_fixtures import TestIntegrationFixtures
 

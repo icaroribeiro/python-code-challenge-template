@@ -2,10 +2,10 @@ import uuid
 from typing import List, Optional
 
 from internal.core.domain.entity.user import User
-from internal.core.ports.infrastructure.storage.datastore.repository.user.repository_interface import (
+from internal.core.ports.infrastructure.datastore.repository.user.repository_interface import (
     IRepository,
 )
-from internal.infrastructure.storage.datastore.persistent_entity.user import (
+from internal.infrastructure.datastore.persistent_entity.user import (
     User as UserDatastore,
 )
 

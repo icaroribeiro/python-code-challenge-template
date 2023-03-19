@@ -5,7 +5,7 @@ from sqlalchemy import Column, DateTime, String
 from sqlalchemy.dialects.postgresql import UUID
 
 from internal.core.domain.entity.user import User as UserDomain
-from internal.infrastructure.storage.datastore.base import Base
+from internal.infrastructure.datastore.base import Base
 
 
 class User(Base):

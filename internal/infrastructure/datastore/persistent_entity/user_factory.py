@@ -4,7 +4,7 @@ import factory
 from factory import BUILD_STRATEGY, LazyAttribute, LazyFunction
 from faker import Faker
 
-from internal.infrastructure.storage.datastore.persistent_entity.user import User
+from internal.infrastructure.datastore.persistent_entity.user import User
 
 fake = Faker()
 

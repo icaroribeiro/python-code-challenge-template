@@ -4,7 +4,7 @@ import pytest
 from faker import Faker
 
 from internal.application.service.user.service import Service
-from internal.core.ports.infrastructure.storage.datastore.repository.user.repository_interface import (
+from internal.core.ports.infrastructure.datastore.repository.user.repository_interface import (
     IRepository,
 )
 

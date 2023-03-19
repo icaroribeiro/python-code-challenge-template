@@ -4,8 +4,8 @@ from internal.application.service.healthcheck.service import (
     Service as HealthCheckService,
 )
 from internal.application.service.user.service import Service as UserService
-from internal.infrastructure.storage.datastore.datastore import Datastore
-from internal.infrastructure.storage.datastore.repository.user.repository import (
+from internal.infrastructure.datastore.datastore import Datastore
+from internal.infrastructure.datastore.repository.user.repository import (
     Repository as UserRepository,
 )
 

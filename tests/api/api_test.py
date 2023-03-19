@@ -11,7 +11,7 @@ class APITest(IntegrationTest):
     @pytest.fixture
     def test_client(self, session):
         with patch(
-            "internal.infrastructure.storage.datastore.datastore.Datastore.build_session"
+            "internal.infrastructure.datastore.datastore.Datastore.build_session"
         ) as datastore_mock:
             datastore_mock.return_value = session
 

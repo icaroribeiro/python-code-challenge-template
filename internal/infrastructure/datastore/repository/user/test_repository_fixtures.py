@@ -1,9 +1,7 @@
 import pytest
 from faker import Faker
 
-from internal.infrastructure.storage.datastore.repository.user.repository import (
-    Repository,
-)
+from internal.infrastructure.datastore.repository.user.repository import Repository
 from tests.integration_test import IntegrationTest
 
 

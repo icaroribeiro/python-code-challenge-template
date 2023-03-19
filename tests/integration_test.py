@@ -4,8 +4,8 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
+from internal.infrastructure.datastore.base import Base
 from internal.infrastructure.env.env import Env
-from internal.infrastructure.storage.datastore.base import Base
 
 env = Env()
 
