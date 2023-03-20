@@ -52,8 +52,8 @@ test-app:
 destroy-app:
 	docker network disconnect testapp_network apitest_container; \
 	docker stop apitest_container; \
- 	docker rm apitest_container; \
- 	docker rmi apitest
+	docker rm apitest_container; \
+	docker rmi apitest
 
 finish-deps:
 	docker network disconnect testapp_network postgrestestdb_container; \
