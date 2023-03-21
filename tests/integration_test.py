@@ -4,7 +4,6 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from internal.infrastructure.datastore.base import Base
 from internal.infrastructure.env.env import Env
 
 env = Env()
@@ -23,25 +22,17 @@ class IntegrationTest:
         conn_string = self._build_datastore_conn_string()
         return create_engine(url=conn_string)
 
-    @pytest.fixture(scope="session")
-    def tables(self, engine):
-        Base.metadata.create_all(engine)
-        yield
-        # Base.metadata.drop_all(engine)
-        Base.metadata.clear()
-
     @pytest.fixture
-    def session(self, engine, tables):
+    def session(self, engine):
         connection = engine.connect()
         transaction = connection.begin()
         session = Session(bind=connection)
         try:
             yield session
         except (Exception,):
-            session.rollback()
+            transaction.rollback()
         finally:
             session.close()
-            transaction.rollback()
             connection.close()
 
     @pytest.fixture
